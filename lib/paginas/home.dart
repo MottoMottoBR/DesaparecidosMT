@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/components/topo_policia_civil.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,16 +15,8 @@ class _HomeState extends State<HomePage> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            width: double.infinity,
-            height: 90,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.black, Colors.black87, Colors.black45],
-              ),
-            ),
-            child: Row(children: [Container( decoration: BoxDecoration(),)]),
-          ),
+          //Top Principal com Banner
+          TopoPoliciaCivil(),
         ],
       ),
     );
