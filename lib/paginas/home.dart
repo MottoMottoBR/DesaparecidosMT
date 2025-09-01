@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../estrutura/back_ground_central.dart';
 import '../estrutura/topo_policia_civil.dart';
+import 'busca.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,8 +20,8 @@ class _HomeState extends State<HomePage> {
             //Topo Principal com Banner
             TopoPoliciaCivil(),
 
-            //Imagem Do Fundo
-            BackGroudCentral(),
+            //Campo De Busca
+            Busca(),
           ],
         ),
       ),
