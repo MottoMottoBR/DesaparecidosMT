@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../estrutura/topo_policia_civil.dart';
+import '../widget/ckeck_box.dart';
 import 'busca.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,6 +23,7 @@ class _HomeState extends State<HomePage> {
 
             //Campo De Busca
             Busca(),
+
           ],
         ),
       ),
