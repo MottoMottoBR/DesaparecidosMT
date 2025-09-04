@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../componentes/tex_form_field_custom.dart';
+import '../widget/buscar_faixa_etaria.dart';
 
 class Busca extends StatefulWidget {
   const Busca({super.key});
@@ -15,6 +17,7 @@ class _BackGroudCentralState extends State<Busca> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
+
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage('lib/imagens/pessoas.jpg'),
@@ -49,7 +52,7 @@ class _BackGroudCentralState extends State<Busca> {
                         textStyle: TextStyle(fontSize: 15, color: Colors.black),
                       ),
                     ),
-                    CustomTextField( hintText: 'Nome', labelText: 'Nome',),
+                    CustomTextField(hintText: 'Nome', labelText: 'Nome'),
 
                     Text(
                       'Faixa Etária:',
@@ -57,11 +60,8 @@ class _BackGroudCentralState extends State<Busca> {
                         textStyle: TextStyle(fontSize: 15, color: Colors.black),
                       ),
                     ),
-                    Row(
-                      children: [
-
-                      ],
-                    )
+                    //Resposanvel por selecionar faixa etaria
+                    BuscaFaixaEtaria(),
                   ],
                 ),
               ),
