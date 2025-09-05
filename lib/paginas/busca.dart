@@ -40,7 +40,7 @@ class _BackGroudCentralState extends State<Busca> {
             //Container Branco de Busca
             Container(
               width: 500,
-              height: 350,
+              height: 400,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(5),
