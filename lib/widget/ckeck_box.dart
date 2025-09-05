@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'botao_customizado.dart';
+
 class CaixaSelecao extends StatefulWidget {
   const CaixaSelecao({super.key});
 
@@ -24,77 +26,80 @@ class _CaixaSelecaoState extends State<CaixaSelecao> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+    return Column(
       children: [
-        // Coluna Sexo
-        Expanded(
-          child: RadioGroup(
-            groupValue: sexoSelecionado,
-            onChanged: (Sexo? value) {
-              setState(() {
-                sexoSelecionado = value;
-              });
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Sexo:",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                RadioListTile.adaptive(
-                  title: const Text("Masculino"),
-                  value: Sexo.masculino,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            // Coluna Sexo
+            Expanded(
+              child: RadioGroup(
+                groupValue: sexoSelecionado,
+                onChanged: (Sexo? value) {
+                  setState(() {
+                    sexoSelecionado = value;
+                  });
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Sexo:",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    RadioListTile.adaptive(
+                      title: const Text("Masculino"),
+                      value: Sexo.masculino,
 
-                ),
-                RadioListTile.adaptive(
-                  title: const Text("Feminino"),
-                  value: Sexo.feminino,
+                    ),
+                    RadioListTile.adaptive(
+                      title: const Text("Feminino"),
+                      value: Sexo.feminino,
 
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
 
-        // Coluna Status
-        Expanded(
-          child: RadioGroup(
-            groupValue: statusSelecionado,
-            onChanged: (Status? value) {
-              setState(() {
-                statusSelecionado = value;
-              });
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Status:",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                RadioListTile.adaptive(
-                  title: const Text("Desaparecido"),
-                  value: Status.desaparecido,
+            // Coluna Status
+            Expanded(
+              child: RadioGroup(
+                groupValue: statusSelecionado,
+                onChanged: (Status? value) {
+                  setState(() {
+                    statusSelecionado = value;
+                  });
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Status:",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    RadioListTile.adaptive(
+                      title: const Text("Desaparecido"),
+                      value: Status.desaparecido,
 
-                ),
-                RadioListTile.adaptive(
-                  title: const Text("Localizado"),
-                  value: Status.localizado,
+                    ),
+                    RadioListTile.adaptive(
+                      title: const Text("Localizado"),
+                      value: Status.localizado,
 
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+
+          ],
+
         ),
         // Adicionando um espaço e o botão de busca
-        const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: _imprimirOpcoes,
-          child: const Text('Buscar'),
-        ),
+        BotaoCustomizado(text: 'X Limpar', Onpressed: () {  },)
       ],
     );
+
   }
 }
