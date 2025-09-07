@@ -66,6 +66,8 @@ flutter:
   assets:
      - lib/imagens/logocivil.png
      - lib/imagens/pessoas.jpg
+     - lib/imagens/insta.png
+     - lib/imagens/whataspp.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
