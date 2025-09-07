@@ -35,60 +35,77 @@ class _BackGroudCentralState extends State<Busca> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(90.0),
-        child: Row(
-          children: [
-            //Container Branco de Busca
-            Container(
-              width: 500,
-              height: 400,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Column(
+              children: [
+                Row(
                   children: [
-                    // 3. Envolva o texto "Busca" com um GestureDetector
-                    GestureDetector(
-                      onTap: () {
-                        // 4. Ao tocar no texto, solicite o foco para o FocusNode
-                        _nomeFocusNode.requestFocus();
-                      },
-                      child: Text(
-                        'Busca',
-                        style: GoogleFonts.abel(
-                          textStyle: TextStyle(fontSize: 25, color: Colors.black),
+                    //Container Branco de Busca
+                    Container(
+                      width: 500,
+                      height: 400,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            // 3. Envolva o texto "Busca" com um GestureDetector
+                            GestureDetector(
+                              onTap: () {
+                                // 4. Ao tocar no texto, solicite o foco para o FocusNode
+                                _nomeFocusNode.requestFocus();
+                              },
+                              child: Text(
+                                'Busca',
+                                style: GoogleFonts.abel(
+                                  textStyle: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'Digite as informações conhecidas para uma busca mais precisa',
+                              style: GoogleFonts.abel(
+                                textStyle: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            CustomTextField(
+                              hintText: 'Nome',
+                              labelText: 'Nome',
+                              // 5. Associe o FocusNode ao seu CustomTextField
+                              focusNode: _nomeFocusNode,
+                            ),
+                            Text(
+                              'Faixa Etária:',
+                              style: GoogleFonts.abel(
+                                textStyle: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            //Resposanvel por selecionar faixa etaria
+                            BuscaFaixaEtaria(),
+                            // Caixa de Seleção Sexo e Estado
+                            CaixaSelecao(),
+                          ],
                         ),
                       ),
                     ),
-                    Text(
-                      'Digite as informações conhecidas para uma busca mais precisa',
-                      style: GoogleFonts.abel(
-                        textStyle: TextStyle(fontSize: 15, color: Colors.black),
-                      ),
-                    ),
-                    CustomTextField(
-                      hintText: 'Nome',
-                      labelText: 'Nome',
-                      // 5. Associe o FocusNode ao seu CustomTextField
-                      focusNode: _nomeFocusNode,
-                    ),
-                    Text(
-                      'Faixa Etária:',
-                      style: GoogleFonts.abel(
-                        textStyle: TextStyle(fontSize: 15, color: Colors.black),
-                      ),
-                    ),
-                    //Resposanvel por selecionar faixa etaria
-                    BuscaFaixaEtaria(),
-                    // Caixa de Seleção Sexo e Estado
-                    CaixaSelecao(),
                   ],
                 ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         ),
       ),
     );
