@@ -10,6 +10,7 @@ class CaixaSelecao extends StatefulWidget {
 }
 
 enum Sexo { masculino, feminino }
+
 enum Status { desaparecido, localizado }
 
 class _CaixaSelecaoState extends State<CaixaSelecao> {
@@ -22,7 +23,6 @@ class _CaixaSelecaoState extends State<CaixaSelecao> {
     print('Sexo: $sexoSelecionado');
     print('Status: $statusSelecionado');
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +45,18 @@ class _CaixaSelecaoState extends State<CaixaSelecao> {
                   children: [
                     const Text(
                       "Sexo:",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     RadioListTile.adaptive(
                       title: const Text("Masculino"),
                       value: Sexo.masculino,
-
                     ),
                     RadioListTile.adaptive(
                       title: const Text("Feminino"),
                       value: Sexo.feminino,
-
                     ),
                   ],
                 ),
@@ -76,30 +77,27 @@ class _CaixaSelecaoState extends State<CaixaSelecao> {
                   children: [
                     const Text(
                       "Status:",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     RadioListTile.adaptive(
                       title: const Text("Desaparecido"),
                       value: Status.desaparecido,
-
                     ),
                     RadioListTile.adaptive(
                       title: const Text("Localizado"),
                       value: Status.localizado,
-
                     ),
                   ],
                 ),
               ),
             ),
-
           ],
-
         ),
-        // Adicionando um espaço e o botão de busca
-        BotaoCustomizado(text: 'X Limpar', Onpressed: () {  },)
+
       ],
     );
-
   }
 }
