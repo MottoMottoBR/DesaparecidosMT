@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/api_service/api_repository.dart';
+import 'package:myapp/paginas/pessoas_desaparecidas.dart';
 import '../estrutura/topo_policia_civil.dart';
-import '../widget/ckeck_box.dart';
 import 'busca.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,10 +21,10 @@ class _HomeState extends State<HomePage> {
           children: [
             //Topo Principal com Banner
             TopoPoliciaCivil(),
-
             //Campo De Busca
             Busca(),
-
+            //Componente para exibir a lista de pessoas da API
+            PessoasDesaparecidas(),
           ],
         ),
       ),
