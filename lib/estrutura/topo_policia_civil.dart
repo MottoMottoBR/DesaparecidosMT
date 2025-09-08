@@ -9,61 +9,72 @@ class TopoPoliciaCivil extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [Colors.black, Colors.black87, Colors.black45],
         ),
       ),
-      child: Wrap(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Bloco de Logo e Títulos
+            Expanded(
+              child: Row(
                 children: [
                   Image.asset(
                     "lib/imagens/logocivil.png",
                     width: 80,
                     height: 80,
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        StringTxT.Titulo,
-                        style: GoogleFonts.adamina(
-                          textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          StringTxT.Titulo,
+                          style: GoogleFonts.adamina(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
-                      ),
-                      Text(
-                        StringTxT.Titulo2,
-                        style: GoogleFonts.adamina(
-                          textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
+                        Text(
+                          StringTxT.Titulo2,
+                          style: GoogleFonts.adamina(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
-              Row(
+            ),
+            // Bloco do Ícone e Título 3
+            Expanded(
+              child: Row(
                 children: [
-                  Icon(Icons.person_2, color: Colors.white),
-                  Text(
-                    StringTxT.Titulo3,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  const Icon(Icons.person_2, color: Colors.white),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      StringTxT.Titulo3,
+                      style: const TextStyle(color: Colors.white, fontSize: 20),
+                    ),
                   ),
-                  SizedBox(width: 20),
                 ],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

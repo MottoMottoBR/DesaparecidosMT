@@ -13,12 +13,10 @@ class Busca extends StatefulWidget {
 }
 
 class _BackGroudCentralState extends State<Busca> {
-  // 1. Crie um FocusNode para controlar o foco do campo de texto
   final FocusNode _nomeFocusNode = FocusNode();
 
   @override
   void dispose() {
-    // 2. Descarte o FocusNode quando o widget for removido para evitar vazamentos de memória
     _nomeFocusNode.dispose();
     super.dispose();
   }
@@ -27,7 +25,7 @@ class _BackGroudCentralState extends State<Busca> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('lib/imagens/pessoas.jpg'),
           fit: BoxFit.cover,
@@ -39,30 +37,29 @@ class _BackGroudCentralState extends State<Busca> {
           builder: (BuildContext context, BoxConstraints constraints) {
             return Column(
               children: [
-                Row(
-                  children: [
-                    //Container Branco de Busca
-                    Container(
-                      width: 500,
-                      height: 400,
+                // Envolve o Container em um Center para centralizar o bloco de busca
+                Center(
+                  // Usa um SizedBox para garantir que o Container nunca seja maior que 500
+                  // mas que também se ajuste ao tamanho da tela.
+                  child: SizedBox(
+                    width: constraints.maxWidth > 500 ? 500 : constraints.maxWidth,
+                    child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            // 3. Envolva o texto "Busca" com um GestureDetector
                             GestureDetector(
                               onTap: () {
-                                // 4. Ao tocar no texto, solicite o foco para o FocusNode
                                 _nomeFocusNode.requestFocus();
                               },
                               child: Text(
                                 'Busca',
                                 style: GoogleFonts.abel(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                     fontSize: 25,
                                     color: Colors.black,
                                   ),
@@ -72,7 +69,7 @@ class _BackGroudCentralState extends State<Busca> {
                             Text(
                               'Digite as informações conhecidas para uma busca mais precisa',
                               style: GoogleFonts.abel(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontSize: 15,
                                   color: Colors.black,
                                 ),
@@ -81,27 +78,24 @@ class _BackGroudCentralState extends State<Busca> {
                             CustomTextField(
                               hintText: 'Nome',
                               labelText: 'Nome',
-                              // 5. Associe o FocusNode ao seu CustomTextField
                               focusNode: _nomeFocusNode,
                             ),
                             Text(
                               'Faixa Etária:',
                               style: GoogleFonts.abel(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontSize: 15,
                                   color: Colors.black,
                                 ),
                               ),
                             ),
-                            //Resposanvel por selecionar faixa etaria
                             BuscaFaixaEtaria(),
-                            // Caixa de Seleção Sexo e Estado
                             CaixaSelecao(),
                           ],
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ],
             );
