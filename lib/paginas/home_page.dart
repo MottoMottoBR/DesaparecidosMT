@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/api_service/api_repository.dart';
+import 'package:myapp/componentes/estatisticas_widget.dart';
 import 'package:myapp/paginas/pessoas_desaparecidas.dart';
 import '../estrutura/topo_policia_civil.dart';
 import 'busca.dart';
@@ -22,7 +23,13 @@ class _HomeState extends State<HomePage> {
             //Topo Principal com Banner
             TopoPoliciaCivil(),
             //Campo De Busca
-            Busca(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Busca(),
+
+              ],
+            ),
             PessoasDesaparecidas(),
           ],
         ),
