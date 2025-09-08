@@ -16,11 +16,7 @@ class Busca extends StatefulWidget {
 class _BackGroudCentralState extends State<Busca> {
   final FocusNode _nomeFocusNode = FocusNode();
 
-  @override
-  void dispose() {
-    _nomeFocusNode.dispose();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,17 +50,12 @@ class _BackGroudCentralState extends State<Busca> {
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    _nomeFocusNode.requestFocus();
-                                  },
-                                  child: Text(
-                                    'Busca',
-                                    style: GoogleFonts.abel(
-                                      textStyle: const TextStyle(
-                                        fontSize: 25,
-                                        color: Colors.black,
-                                      ),
+                                Text(
+                                  'Busca',
+                                  style: GoogleFonts.abel(
+                                    textStyle: const TextStyle(
+                                      fontSize: 25,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ),
@@ -94,8 +85,6 @@ class _BackGroudCentralState extends State<Busca> {
                                 BuscaFaixaEtaria(),
                                 CaixaSelecao(),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-
                                   children: [
                                     Expanded(
                                       child: Padding(
@@ -107,15 +96,20 @@ class _BackGroudCentralState extends State<Busca> {
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomBotao(
-                                          text: 'Buscar',
-                                          color: Colors.yellow,
-                                          icon: Icons.search,
+                                    GestureDetector(
+                                      child: Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: CustomBotao(
+                                            text: 'Buscar',
+                                            color: Colors.yellow,
+                                            icon: Icons.search,
+                                          ),
                                         ),
                                       ),
+                                      onTap: (){
+                                        print("object");
+                                      },
                                     ),
                                   ],
                                 ),
