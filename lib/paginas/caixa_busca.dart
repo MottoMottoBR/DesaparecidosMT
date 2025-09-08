@@ -14,9 +14,16 @@ class Busca extends StatefulWidget {
 }
 
 class _BackGroudCentralState extends State<Busca> {
-  final FocusNode _nomeFocusNode = FocusNode();
+  //final FocusNode _nomeFocusNode = FocusNode();
+  final TextEditingController _controller = TextEditingController();
 
+  String _displayText = '';
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +78,7 @@ class _BackGroudCentralState extends State<Busca> {
                                 CustomTextField(
                                   hintText: 'Nome',
                                   labelText: 'Nome',
-                                  focusNode: _nomeFocusNode,
+                                  controller: _controller,
                                 ),
                                 Text(
                                   'Faixa Etária:',
@@ -96,20 +103,20 @@ class _BackGroudCentralState extends State<Busca> {
                                         ),
                                       ),
                                     ),
-                                    GestureDetector(
-                                      child: Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: CustomBotao(
-                                            text: 'Buscar',
-                                            color: Colors.yellow,
-                                            icon: Icons.search,
-                                          ),
+
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: CustomBotao(
+                                          text: 'Buscar',
+                                          color: Colors.yellow,
+                                          icon: Icons.search,
+                                          onPressed: (){
+                                            print(_controller.text);
+                                          },
                                         ),
+
                                       ),
-                                      onTap: (){
-                                        print("object");
-                                      },
                                     ),
                                   ],
                                 ),
