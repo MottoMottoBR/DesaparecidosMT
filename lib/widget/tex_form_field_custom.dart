@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final EdgeInsetsGeometry? padding;
   final String? hintText;
   final String? labelText;
@@ -11,12 +11,13 @@ class CustomTextField extends StatefulWidget {
 
   const CustomTextField({
     super.key,
-    this.controller,
+    required this.controller,
     this.padding,
     this.hintText,
     this.labelText,
     this.validator,
-    this.helperText, this.focusNode,
+    this.helperText,
+    this.focusNode,
   });
 
   @override
@@ -45,7 +46,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
         //coloca uma cor na borda e no texto de aviso em caso de error
         errorBorder: defaultBorder.copyWith(
           borderSide: const BorderSide(color: Colors.red),
-
         ),
         focusedErrorBorder: defaultBorder,
         enabledBorder: defaultBorder,
