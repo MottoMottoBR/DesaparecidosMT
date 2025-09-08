@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CustomBotao extends StatefulWidget {
   final String text;
   final Color color;
+  final VoidCallback? onPressed;
 
   final icon;
   const CustomBotao({
@@ -10,6 +11,7 @@ class CustomBotao extends StatefulWidget {
     required this.text,
     required this.color,
     required this.icon,
+    this.onPressed,
   });
 
   @override
@@ -19,17 +21,23 @@ class CustomBotao extends StatefulWidget {
 class _CustomBotaoState extends State<CustomBotao> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: widget.color,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(widget.icon, color: Colors.white),
-          Text(widget.text, style: TextStyle(color: Colors.white)),
-        ],
+    return GestureDetector(
+      onTap: widget.onPressed,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          decoration: BoxDecoration(
+            color: widget.color,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(widget.icon, color: Colors.white),
+              Text(widget.text, style: TextStyle(color: Colors.white)),
+            ],
+          ),
+        ),
       ),
     );
   }
