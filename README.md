@@ -1,16 +1,36 @@
-# myapp
+# 👨‍💻 Olá, eu sou [Seu Nome]
 
-A new Flutter project.
+Sou desenvolvedor júnior em início de carreira, com foco em **Flutter** para criação de aplicativos móveis.  
+Apesar de ainda não ter experiência profissional, tenho dedicado meus estudos e projetos pessoais para evoluir minhas habilidades técnicas.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Objetivo
+Atuar como **Desenvolvedor Júnior Flutter**, aplicando meus conhecimentos para criar soluções eficientes e de qualidade, enquanto evoluo profissionalmente em um ambiente colaborativo.
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🛠️ Tecnologias e Ferramentas
+- Flutter  
+- Dart  
+- Git & GitHub  
+- Firebase (básico)  
+- Consumo de APIs REST  
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 📂 Projetos
+- [Nome do Projeto 1](#) – Breve descrição do que faz  
+- [Nome do Projeto 2](#) – Breve descrição do que faz  
+- [Nome do Projeto 3](#) – Breve descrição do que faz  
+
+---
+
+## 📫 Como me encontrar
+- Email: [seuemail@exemplo.com](mailto:seuemail@exemplo.com)  
+- LinkedIn: [linkedin.com/in/seuusuario](https://linkedin.com/in/seuusuario)  
+- GitHub: [github.com/seuusuario](https://github.com/seuusuario)  
+
+---
+
+✨ Sempre aberto a aprender coisas novas e encarar desafios!
