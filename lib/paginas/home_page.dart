@@ -23,7 +23,6 @@ class _HomeState extends State<HomePage> {
             TopoPoliciaCivil(),
             //Campo De Busca
             Busca(),
-            //Componente para exibir a lista de pessoas da API
             PessoasDesaparecidas(),
           ],
         ),
