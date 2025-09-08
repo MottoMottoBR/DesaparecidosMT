@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/paginas/pessoas_detalhes.dart';
+import 'package:myapp/paginas/pessoas_detalhes_desaparecida.dart';
 import '../api_service/api_repository.dart';
 import '../models/pessoa_model.dart';
 
