@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/paginas/home.dart';
+import 'package:myapp/paginas/pessoas_detalhes.dart';
+import 'package:myapp/paginas/home_page.dart';
 import 'package:myapp/ultis/strings.dart';
 
 void main() {
