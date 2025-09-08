@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/paginas/pessoas_detalhes.dart';
 import '../api_service/api_repository.dart';
 import '../models/pessoa_model.dart';
 
@@ -10,7 +11,7 @@ class PessoasDesaparecidas extends StatefulWidget {
 }
 
 class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
-  // Criauma instância do seu repositório
+  // Cria uma instância do seu repositório
   final ApiRepositorio _apiRepositorio = ApiRepositorio();
 
   @override
@@ -19,7 +20,7 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
       future: _apiRepositorio.getPessoas(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           return Center(
@@ -32,7 +33,6 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
           final listaDePessoas = snapshot.data!;
           return GridView.builder(
             shrinkWrap: true,
-            // physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: (MediaQuery.of(context).size.width / 200).floor(),
               crossAxisSpacing: 2, // Espaçamento horizontal
@@ -40,7 +40,6 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
               childAspectRatio:
                   0.5, // Proporção da largura pela altura de cada item
             ),
-
             itemCount: listaDePessoas.length,
             itemBuilder: (BuildContext context, int index) {
               final pessoa = listaDePessoas[index];
@@ -48,7 +47,19 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   onTap: () {
-                    print("Clicou na pessoa, ${ pessoa.nome}");
+                    final pessoa = listaDePessoas[index];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PessoasDetalhes(pessoa: pessoa),
+                      ),
+                    );
+                    print(pessoa.nome);
+                    print(pessoa.vivo);
+                    print(
+                      pessoa.ultimaOcorrencia!.dataLocalizacao ??
+                          "Sem dada de Localização",
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
@@ -64,14 +75,20 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                         children: [
                           pessoa.urlFoto != null
                               ? Image.network(
+                                  pessoa.urlFoto!,
                                   height: 250,
                                   width: double.infinity,
-                                  pessoa.urlFoto!,
                                   fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    // Este widget será exibido se a imagem falhar ao carregar (ex: erro 404)
+                                    return const Icon(Icons.person, size: 200);
+                                  },
                                 )
-                              : Icon(Icons.person, size: 40),
-
-                          //Nome da Pessoa Desaparecida
+                              : const Icon(
+                                  Icons.person,
+                                  size: 200,
+                                  color: Colors.black,
+                                ),
                           Padding(
                             padding: const EdgeInsets.only(
                               left: 5,
@@ -83,31 +100,35 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  pessoa.nome!,
-                                  style: TextStyle(
+                                  // Verificação de nulo no nome
+                                  pessoa.nome ?? 'Nome não informado',
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 Text(
-                                  '${(pessoa.idade!)} anos, ${(pessoa.sexo!)}',
-                                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w100),
+                                  // Verificações de nulo para idade e sexo
+                                  '${(pessoa.idade ?? 'idade não informada')} anos, ${(pessoa.sexo ?? 'sexo não informado')}',
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w100,
+                                  ),
                                 ),
-                                SizedBox(height: 20),
-
+                                const SizedBox(height: 20),
                                 Text(
-                                  'Data: ${(pessoa.ultimaOcorrencia?.dtDesaparecimento != null ? pessoa.ultimaOcorrencia!.dtDesaparecimento!.substring(0, 10) : 'Não informada')}',
+                                  // Verificação de nulo na data de desaparecimento
+                                  'Data: ${pessoa.ultimaOcorrencia?.dtDesaparecimento?.substring(0, 10) ?? 'Não informada'}',
                                   style: const TextStyle(fontSize: 15),
                                 ),
                                 Text(
-                                  'Local: ${(pessoa.ultimaOcorrencia?.localDesaparecimentoConcat)}',
+                                  // Verificação de nulo no local de desaparecimento
+                                  'Local: ${pessoa.ultimaOcorrencia?.localDesaparecimentoConcat ?? 'Não informado'}',
                                   style: const TextStyle(fontSize: 15),
                                 ),
                               ],
                             ),
                           ),
-
-                          //Data de Nascimento da Pessoa
                         ],
                       ),
                     ),
