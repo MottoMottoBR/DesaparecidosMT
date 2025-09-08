@@ -4,7 +4,8 @@ import '../api_service/api_repository.dart';
 import '../models/pessoa_model.dart';
 
 class PessoasDesaparecidas extends StatefulWidget {
-  const PessoasDesaparecidas({super.key});
+  final List<PessoasModel>? pessoas;
+  const PessoasDesaparecidas({super.key, this.pessoas});
 
   @override
   State<PessoasDesaparecidas> createState() => _PessoasDesaparecidasState();
@@ -13,6 +14,17 @@ class PessoasDesaparecidas extends StatefulWidget {
 class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
   // Cria uma instância do seu repositório
   final ApiRepositorio _apiRepositorio = ApiRepositorio();
+  late Future<List<PessoasModel>> _futurePessoas;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.pessoas != null) {
+      _futurePessoas = Future.value(widget.pessoas!);
+    } else {
+      _futurePessoas = _apiRepositorio.getPessoas();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +45,13 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
           final listaDePessoas = snapshot.data!;
           return GridView.builder(
             shrinkWrap: true,
+
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: (MediaQuery.of(context).size.width / 200).floor(),
               crossAxisSpacing: 2, // Espaçamento horizontal
               mainAxisSpacing: 2, // Espaçamento vertical
               childAspectRatio:
-                  0.5, // Proporção da largura pela altura de cada item
+                  0.4, // Proporção da largura pela altura de cada item
             ),
             itemCount: listaDePessoas.length,
             itemBuilder: (BuildContext context, int index) {
@@ -68,10 +81,7 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                         color: Colors.white,
                         border: Border.all(color: Colors.black12, width: 3),
                       ),
-                      width: 150,
-                      height: 350,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           pessoa.urlFoto != null
                               ? Image.network(

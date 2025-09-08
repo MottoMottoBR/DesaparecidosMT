@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../componentes/estatisticas_widget.dart';
-import '../componentes/tex_form_field_custom.dart';
+import '../widget/botao_customizado.dart';
 import '../widget/buscar_faixa_etaria.dart';
 import '../widget/ckeck_box.dart';
+import '../widget/tex_form_field_custom.dart';
 
 class Busca extends StatefulWidget {
   const Busca({super.key});
@@ -40,12 +40,11 @@ class _BackGroudCentralState extends State<Busca> {
               builder: (BuildContext context, BoxConstraints constraints) {
                 return Column(
                   children: [
-                    // Envolve o Container em um Center para centralizar o bloco de busca
                     Center(
-                      // Usa um SizedBox para garantir que o Container nunca seja maior que 500
-                      // mas que também se ajuste ao tamanho da tela.
                       child: SizedBox(
-                        width: constraints.maxWidth > 500 ? 500 : constraints.maxWidth,
+                        width: constraints.maxWidth > 500
+                            ? 500
+                            : constraints.maxWidth,
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -94,7 +93,32 @@ class _BackGroudCentralState extends State<Busca> {
                                 ),
                                 BuscaFaixaEtaria(),
                                 CaixaSelecao(),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
 
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: CustomBotao(
+                                          text: 'Limpar',
+                                          color: Colors.deepOrange,
+                                          icon: Icons.close,
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: CustomBotao(
+                                          text: 'Buscar',
+                                          color: Colors.yellow,
+                                          icon: Icons.search,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -105,7 +129,6 @@ class _BackGroudCentralState extends State<Busca> {
                 );
               },
             ),
-
           ),
           EstatisticasWidget(),
         ],

@@ -3,7 +3,7 @@ import 'package:myapp/api_service/api_repository.dart';
 import 'package:myapp/componentes/estatisticas_widget.dart';
 import 'package:myapp/paginas/pessoas_desaparecidas.dart';
 import '../estrutura/topo_policia_civil.dart';
-import 'busca.dart';
+import 'caixa_busca.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,13 +23,8 @@ class _HomeState extends State<HomePage> {
             //Topo Principal com Banner
             TopoPoliciaCivil(),
             //Campo De Busca
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Busca(),
-
-              ],
-            ),
+            Busca(),
+            //Lista de pessoas desaparecidas dinamica
             PessoasDesaparecidas(),
           ],
         ),
