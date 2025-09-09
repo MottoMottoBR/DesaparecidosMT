@@ -7,6 +7,7 @@ O foco é aplicar boas práticas de desenvolvimento, integração com APIs e  ve
 Responsável pelo projeto
 
 Nome: Alessandro Araujo Pereira
+
 E-mail: Alessandro.aoc@gmail.com
 
 ---
