@@ -35,7 +35,7 @@ O foco é aplicar boas práticas de desenvolvimento, integração com APIs e  ve
      🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ 30%
   
 - ** Layout Geral **  
-     🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ 60%
+     🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ 20%
   
 
   
