@@ -4,11 +4,10 @@ Este projeto foi desenvolvido em **Flutter** com o objetivo de demonstrar minhas
 O foco é aplicar boas práticas de desenvolvimento, integração com APIs e  versionamento de código.
 
 ---
-Responsavel pelo projeto
-Nome: Alessandro Araujo Pereira     
-E-Mail: Alessandro.aoc@gmail.com
+Responsável pelo projeto
 
-
+Nome: Alessandro Araujo Pereira
+E-mail: Alessandro.aoc@gmail.com
 
 ---
 
