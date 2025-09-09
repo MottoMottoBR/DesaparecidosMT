@@ -41,5 +41,5 @@ O foco é aplicar boas práticas de desenvolvimento, integração com APIs e  ve
   
 ## 📱 Plataformas Disponíveis
 
-| 📱 Android  ✅ Baixar APK](link-do-apk) |  💻 Windows (EXE) ✅ Baixar EXE (link-do-exe) | 🌐 Web  => ✅ Acessar Web](https://seuusuario.github.io/seuprojeto) | 🍎 iOS ❌ Não compilado |
+🌐 Web  => ✅ Acessar Web](https://seuusuario.github.io/seuprojeto)
 
