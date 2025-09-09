@@ -32,14 +32,14 @@ O foco é aplicar boas práticas de desenvolvimento, integração com APIs e  ve
      🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ 40%
   
 - ** Responsividade**  
-     🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ 10%
+     🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ 30%
   
-  - ** Layout Geral **  
+- ** Layout Geral **  
      🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ 60%
   
 
   
 ## 📱 Plataformas Disponíveis
 
-| 📱 Android => ✅ Baixar APK](link-do-apk) |   💻 Windows (EXE) =>  ✅ Baixar EXE](link-do-exe) | 🌐 Web  => ✅ Acessar Web](https://seuusuario.github.io/seuprojeto) | 🍎 iOS ❌ Não compilado |
+| 📱 Android  ✅ Baixar APK](link-do-apk) |  💻 Windows (EXE) ✅ Baixar EXE (link-do-exe) | 🌐 Web  => ✅ Acessar Web](https://seuusuario.github.io/seuprojeto) | 🍎 iOS ❌ Não compilado |
 
