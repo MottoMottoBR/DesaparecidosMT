@@ -8,12 +8,19 @@ class ApiRepositorio {
   // URL base para todos os endpoints da API
   final String _baseUrl = 'https://abitus-api.geia.vip/v1/pessoas/aberto';
 
-
-  Future<List<PessoasModel>> getPessoas() async {
+  // Ajuste para carregar com paginação
+  Future<List<PessoasModel>> getPessoas({int page = 1, int registros = 10}) async {
     try {
-      final response = await http.get(
-        Uri.parse('$_baseUrl/dinamico?registros=10'),
+      final uri = Uri.https(
+        'abitus-api.geia.vip',
+        '/v1/pessoas/aberto/dinamico',
+        {
+          'pagina': '$page',
+          'registros': '$registros',
+        },
       );
+
+      final response = await http.get(uri);
 
       if (response.statusCode == 200) {
         final decodedJson = jsonDecode(response.body);
@@ -31,7 +38,6 @@ class ApiRepositorio {
       throw Exception('Erro ao carregar a lista: $e');
     }
   }
-
 
   Future<EstatisticasModel> getEstatisticas() async {
     try {

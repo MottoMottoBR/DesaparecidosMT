@@ -25,7 +25,10 @@ class _HomeState extends State<HomePage> {
             //Campo De Busca
             Busca(),
             //Lista de pessoas desaparecidas dinamica
-            PessoasDesaparecidas(),
+            Padding(
+              padding: const EdgeInsets.all(60.0),
+              child: PessoasDesaparecidas(),
+            ),
           ],
         ),
       ),

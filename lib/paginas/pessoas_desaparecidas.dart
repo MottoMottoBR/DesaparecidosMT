@@ -4,102 +4,129 @@ import '../api_service/api_repository.dart';
 import '../models/pessoa_model.dart';
 
 class PessoasDesaparecidas extends StatefulWidget {
-  final List<PessoasModel>? pessoas;
-  const PessoasDesaparecidas({super.key, this.pessoas});
+  const PessoasDesaparecidas({super.key});
 
   @override
   State<PessoasDesaparecidas> createState() => _PessoasDesaparecidasState();
 }
 
 class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
-  // Cria uma instância do seu repositório
   final ApiRepositorio _apiRepositorio = ApiRepositorio();
-  late Future<List<PessoasModel>> _futurePessoas;
+  final ScrollController _scrollController = ScrollController();
+
+  List<PessoasModel> _pessoas = [];
+  int _currentPage = 1;
+  bool _isLoading = false;
+  bool _hasMoreData = true;
 
   @override
   void initState() {
     super.initState();
-    if (widget.pessoas != null) {
-      _futurePessoas = Future.value(widget.pessoas!);
-    } else {
-      _futurePessoas = _apiRepositorio.getPessoas();
+    _fetchPessoas();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _fetchPessoas() async {
+    if (_isLoading) return;
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final newPessoas = await _apiRepositorio.getPessoas(page: _currentPage, registros: 10);
+      if (newPessoas.isEmpty) {
+        setState(() {
+          _hasMoreData = false;
+        });
+      } else {
+        setState(() {
+          _pessoas.addAll(newPessoas);
+          _currentPage++;
+        });
+      }
+    } catch (e) {
+      print('Erro ao carregar dados: $e');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !_isLoading && _hasMoreData) {
+      _fetchPessoas();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<PessoasModel>>(
-      future: _apiRepositorio.getPessoas(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (snapshot.hasError) {
-          return Center(
-            child: Text('Erro ao carregar os dados: ${snapshot.error}'),
-          );
-        }
-
-        // Exibe a lista se os dados estiverem disponíveis
-        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-          final listaDePessoas = snapshot.data!;
-          return GridView.builder(
-            shrinkWrap: true,
-
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: (MediaQuery.of(context).size.width / 200).floor(),
-              crossAxisSpacing: 2, // Espaçamento horizontal
-              mainAxisSpacing: 2, // Espaçamento vertical
-              childAspectRatio:
-                  0.5, // Proporção da largura pela altura de cada item
-            ),
-            itemCount: listaDePessoas.length,
-            itemBuilder: (BuildContext context, int index) {
-              final pessoa = listaDePessoas[index];
-              return MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
-                    final pessoa = listaDePessoas[index];
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PessoasDetalhes(pessoa: pessoa),
-                      ),
-                    );
-                    print(pessoa.nome);
-                    print(pessoa.vivo);
-                    print(
-                      pessoa.ultimaOcorrencia!.dataLocalizacao ??
-                          "Sem dada de Localização",
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black12, width: 3),
-                      ),
-                      child: Column(
-                        children: [
-                          pessoa.urlFoto != null
-                              ? Image.network(
-                                  pessoa.urlFoto!,
-                                  height: 250,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    // Este widget será exibido se a imagem falhar ao carregar (ex: erro 404)
-                                    return const Icon(Icons.person, size: 200);
-                                  },
-                                )
-                              : const Icon(
-                                  Icons.person,
-                                  size: 200,
-                                  color: Colors.black,
-                                ),
-                          Padding(
+    return Scaffold(
+      body: _pessoas.isEmpty && _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : _pessoas.isEmpty && !_isLoading
+          ? const Center(child: Text('Nenhuma pessoa desaparecida encontrada.'))
+          : GridView.builder(
+        controller: _scrollController,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: (MediaQuery.of(context).size.width / 200).floor(),
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+          childAspectRatio: 0.4,
+        ),
+        itemCount: _pessoas.length + (_hasMoreData ? 1 : 0),
+        itemBuilder: (BuildContext context, int index) {
+          if (index < _pessoas.length) {
+            final pessoa = _pessoas[index];
+            return MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PessoasDetalhes(pessoa: pessoa),
+                    ),
+                  );
+                  print(pessoa.nome);
+                  print(pessoa.vivo);
+                  print(
+                    pessoa.ultimaOcorrencia!.dataLocalizacao ??
+                        "Sem dada de Localização",
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.black12, width: 3),
+                    ),
+                    child: Column(
+                      children: [
+                        pessoa.urlFoto != null
+                            ? Image.network(
+                          pessoa.urlFoto!,
+                          height: 250,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.person, size: 200);
+                          },
+                        )
+                            : const Icon(
+                          Icons.person,
+                          size: 200,
+                          color: Colors.black,
+                        ),
+                        Expanded(
+                          child: Padding(
                             padding: const EdgeInsets.only(
                               left: 5,
                               top: 2,
@@ -110,7 +137,6 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  // Verificação de nulo no nome
                                   pessoa.nome ?? 'Nome não informado',
                                   style: const TextStyle(
                                     fontSize: 18,
@@ -118,7 +144,6 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                                   ),
                                 ),
                                 Text(
-                                  // Verificações de nulo para idade e sexo
                                   '${(pessoa.idade ?? 'idade não informada')} anos, ${(pessoa.sexo ?? 'sexo não informado')}',
                                   style: const TextStyle(
                                     fontSize: 15,
@@ -127,33 +152,31 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                                 ),
                                 const SizedBox(height: 20),
                                 Text(
-                                  // Verificação de nulo na data de desaparecimento
                                   'Data: ${pessoa.ultimaOcorrencia?.dtDesaparecimento?.substring(0, 10) ?? 'Não informada'}',
                                   style: const TextStyle(fontSize: 15),
                                 ),
                                 Text(
-                                  // Verificação de nulo no local de desaparecimento
                                   'Local: ${pessoa.ultimaOcorrencia?.localDesaparecimentoConcat ?? 'Não informado'}',
                                   style: const TextStyle(fontSize: 15),
                                 ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              );
-            },
-          );
-        }
-
-        // Se não houver dados
-        return const Center(
-          child: Text('Nenhuma pessoa desaparecida encontrada.'),
-        );
-      },
+              ),
+            );
+          } else {
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: 20.0),
+              child: Center(child: CircularProgressIndicator()),
+            );
+          }
+        },
+      ),
     );
   }
 }
