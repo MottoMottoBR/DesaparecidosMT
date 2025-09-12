@@ -51,7 +51,7 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
               crossAxisSpacing: 2, // Espaçamento horizontal
               mainAxisSpacing: 2, // Espaçamento vertical
               childAspectRatio:
-                  0.4, // Proporção da largura pela altura de cada item
+                  0.5, // Proporção da largura pela altura de cada item
             ),
             itemCount: listaDePessoas.length,
             itemBuilder: (BuildContext context, int index) {
