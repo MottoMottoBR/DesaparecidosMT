@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/api_service/api_repository.dart';
 import 'package:myapp/componentes/estatisticas_widget.dart';
+import 'package:myapp/estrutura/rodape_page.dart';
 import 'package:myapp/paginas/pessoas_desaparecidas.dart';
 import '../estrutura/topo_policia_civil.dart';
 import 'caixa_busca.dart';
@@ -56,6 +57,7 @@ class _HomeState extends State<HomePage> {
               child: PessoasDesaparecidas(),
             ),
             //Rodapé da Pagina
+            RodapePage(),
           ],
         ),
       ),
