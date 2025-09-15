@@ -36,6 +36,7 @@ class _BackGroudCentralState extends State<Busca> {
         ),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.all(90.0),
@@ -51,7 +52,7 @@ class _BackGroudCentralState extends State<Busca> {
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
