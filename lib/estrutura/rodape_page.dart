@@ -10,60 +10,96 @@ class RodapePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [Colors.black, Colors.black87, Colors.black45],
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 60),
+        padding: EdgeInsets.only(left: 250, right: 250),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // Bloco de Logo e Títulos
-            Row(
+            Column(
               children: [
-                Image.asset(
-                  "lib/imagens/logocivil.png",
-                  width: 80,
-                  height: 80,
-                ),
-                //espaco entre a Imagem o e O TEXO POLICIA CIVIL
-                const SizedBox(width: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Text(
-                      StringTxT.Titulo,
-                      style: GoogleFonts.adamina(
-                        textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
+                    Image.asset(
+                      "lib/imagens/logocivil.png",
+                      width: 75,
+                      height: 75,
                     ),
-                    Text(
-                      StringTxT.Titulo2,
-                      style: GoogleFonts.adamina(
-                        textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
+                    //espaco entre a Imagem o e O TEXO POLICIA CIVIL
+                    SizedBox(width: 3),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          StringTxT.Titulo,
+                          style: GoogleFonts.adamina(
+                            textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
+                          ),
                         ),
-                      ),
+                        Text(
+                          StringTxT.Titulo2,
+                          style: GoogleFonts.adamina(
+                            textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ],
             ),
-            // Bloco do Ícone e Título 3
-            const Row(mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
+            // Bloco De Serviços
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+
               children: [
-                const Icon(Icons.person_2, color: Colors.white),
-                const SizedBox(width: 4),
-                Text(
-                  StringTxT.Titulo3,
-                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Serviços',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Agenda'),
+                        SizedBox(width: 10),
+                        Text('Delegacia Digital'),
+                        SizedBox(width: 10),
+                        Text('Estatísticas'),
+                        SizedBox(width: 10),
+                        Text('Fale Corregedoria'),
+                        SizedBox(width: 10),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Contatos / Unidades'),
+                        SizedBox(width: 10),
+                        Text('Dicas de Segurança'),
+                        SizedBox(width: 10),
+                        Text('Fale com a PJC'),
+                        SizedBox(width: 10),
+                        Text('Fale Ouvidoria'),
+                        SizedBox(width: 10),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
