@@ -41,12 +41,12 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
             runSpacing: 16.0, // Espaço vertical entre as linhas
             alignment: WrapAlignment.center, // Centraliza os cards
             children: pessoas.map((pessoa) {
-              // 1. Converte a string da API para um objeto DateTime
+              //Converte a string da API para um objeto DateTime
               final dtDesaparecimento = DateTime.parse(
                 pessoa.ultimaOcorrencia!.dtDesaparecimento!,
               );
 
-              // 2. Formata o objeto DateTime para o formato desejado (dd/MM/yyyy)
+              //Formata o objeto DateTime para o formato desejado (dd/MM/yyyy)
               final dataFormatada = DateFormat(
                 'dd/MM/yyyy',
               ).format(dtDesaparecimento);
@@ -66,6 +66,9 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                 child: GestureDetector(
                   onTap: () {
                     print(pessoa.nome);
+                    print(pessoa.idade);
+                    print(pessoa.sexo);
+                    print(pessoa.ultimaOcorrencia!.localDesaparecimentoConcat);
                   },
                   child: SizedBox(
                     width: 300.0,
@@ -73,15 +76,14 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                         490.0, // Largura fixa de cada card, eles se ajustarão automaticamente.
                     child: Card(
                       elevation: _hoveredIndex == pessoas.indexOf(pessoa)
-                          ? 8
-                          : 4,
+                          ? 50
+                          : 1,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
                           if (pessoa.urlFoto != null &&
                               pessoa.urlFoto!.isNotEmpty)
                             AspectRatio(
@@ -96,6 +98,14 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                                   pessoa.urlFoto!,
                                   fit: BoxFit.cover,
                                   height: 250, // Altura fixa da imagem
+                                  // Adiciona o construtor de erro - se imagen web falha
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(
+                                      'lib/imagens/user.png',
+                                      fit: BoxFit.cover,
+                                      height: 250, // Altura fixa da imagem
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -104,38 +114,69 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                               horizontal: 8.0,
                               vertical: 4.0,
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-
-                                Text(
-                                  pessoa.nome ?? "Sem Nome",
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text(
+                                    pessoa.nome ?? "Sem Nome",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  '${pessoa.idade} Anos, ${pessoa.sexo} ',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w100,
-                                    fontSize: 13,
+                                  Text(
+                                    '${pessoa.idade} Anos, ${pessoa.sexo} ',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 13,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 15),
-                                Text(
-                                  'Data: $dataFormatada ',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w100,
-                                    fontSize: 13,
+                                  SizedBox(height: 15),
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Data: ',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: dataFormatada,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w100,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Local: ',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: pessoa
+                                              .ultimaOcorrencia!
+                                              .localDesaparecimentoConcat,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w100,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
