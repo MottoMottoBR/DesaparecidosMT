@@ -6,81 +6,17 @@ import 'package:myapp/models/pessoas_filtro_model.dart';
 
 class ApiRepositorio {
   // URL base para todos os endpoints da API
-  final String _baseUrl = 'https://abitus-api.geia.vip/v1/pessoas/aberto';
+  final String _baseUrl =
+      'https://abitus-api.geia.vip/v1/pessoas/aberto/dinamico?registros=25';
 
-  // Ajuste para carregar com paginação
-  Future<List<PessoasModel>> getPessoas({int page = 1, int registros = 10}) async {
-    try {
-      final uri = Uri.https(
-        'abitus-api.geia.vip',
-        '/v1/pessoas/aberto/dinamico',
-        {
-          'pagina': '$page',
-          'registros': '$registros',
-        },
-      );
+  Future<List<PessoasModel>> getPessoas() async {
+    final response = await http.get(Uri.parse(_baseUrl));
 
-      final response = await http.get(uri);
-
-      if (response.statusCode == 200) {
-        final decodedJson = jsonDecode(response.body);
-        final List<PessoasModel> listPessoas = [];
-
-        for (var item in decodedJson) {
-          listPessoas.add(PessoasModel.fromJson(item));
-        }
-
-        return listPessoas;
-      } else {
-        throw Exception('Falha ao carregar a lista. Status Code: ${response.statusCode}');
-      }
-    } catch (e) {
-      throw Exception('Erro ao carregar a lista: $e');
-    }
-  }
-
-  Future<EstatisticasModel> getEstatisticas() async {
-    try {
-      final response = await http.get(
-        Uri.parse('$_baseUrl/estatistico'),
-      );
-
-      if (response.statusCode == 200) {
-        final decodedJson = jsonDecode(response.body);
-        return EstatisticasModel.fromJson(decodedJson);
-      } else {
-        throw Exception('Falha ao carregar as estatísticas. Status Code: ${response.statusCode}');
-      }
-    } catch (e) {
-      throw Exception('Erro ao carregar as estatísticas: $e');
-    }
-  }
-
-
-  Future<PessoasFiltroModel> getPessoasFiltradas({
-    String? nome,
-    int? faixaIdadeInicial,
-    int? faixaIdadeFinal,
-  }) async {
-    try {
-      final Map<String, dynamic> queryParams = {
-        'nome': nome,
-        'faixaIdadeInicial': faixaIdadeInicial?.toString(),
-        'faixaIdadeFinal': faixaIdadeFinal?.toString(),
-      };
-
-      final uri = Uri.parse('$_baseUrl/filtro').replace(queryParameters: queryParams);
-
-      final response = await http.get(uri);
-
-      if (response.statusCode == 200) {
-        final decodedJson = jsonDecode(response.body);
-        return PessoasFiltroModel.fromJson(decodedJson);
-      } else {
-        throw Exception('Falha ao filtrar pessoas. Status Code: ${response.statusCode}');
-      }
-    } catch (e) {
-      throw Exception('Erro ao filtrar pessoas: $e');
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      return data.map((json) => PessoasModel.fromJson(json)).toList();
+    } else {
+      throw Exception('Falha ao carregar Dados');
     }
   }
 }

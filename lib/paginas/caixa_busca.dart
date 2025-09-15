@@ -131,7 +131,7 @@ class _BackGroudCentralState extends State<Busca> {
               },
             ),
           ),
-          EstatisticasWidget(),
+         // EstatisticasWidget(),
         ],
       ),
     );

@@ -19,14 +19,40 @@ class _HomeState extends State<HomePage> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             //Topo Principal com Banner
             TopoPoliciaCivil(),
             //Campo De Busca
             Busca(),
+            SizedBox(height: 80),
             //Lista de pessoas desaparecidas dinamica
+            Column(
+              children: [
+                Text(
+                  "Resultado",
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 45,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  "_____________________________________________________________________",
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
             Padding(
-              padding: const EdgeInsets.all(60.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 150.0,
+                vertical: 80,
+              ), // Ajuste o valor '20.0'
               child: PessoasDesaparecidas(),
             ),
           ],

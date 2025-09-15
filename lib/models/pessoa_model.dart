@@ -1,111 +1,205 @@
-
 class PessoasModel {
-  int? id;
-  String? nome;
-  int? idade;
-  String? sexo;
-  bool? vivo;
-  String? urlFoto;
-  UltimaOcorrencia? ultimaOcorrencia;
+  int? _id;
+  String? _nome;
+  int? _idade;
+  String? _sexo;
+  bool? _vivo;
+  String? _urlFoto;
+  UltimaOcorrencia? _ultimaOcorrencia;
 
-  PessoasModel(
-      {this.id,
-        this.nome,
-        this.idade,
-        this.sexo,
-        this.vivo,
-        this.urlFoto,
-        this.ultimaOcorrencia});
+  PessoaModel(
+      {int? id,
+        String? nome,
+        int? idade,
+        String? sexo,
+        bool? vivo,
+        String? urlFoto,
+        UltimaOcorrencia? ultimaOcorrencia}) {
+    if (id != null) {
+      this._id = id;
+    }
+    if (nome != null) {
+      this._nome = nome;
+    }
+    if (idade != null) {
+      this._idade = idade;
+    }
+    if (sexo != null) {
+      this._sexo = sexo;
+    }
+    if (vivo != null) {
+      this._vivo = vivo;
+    }
+    if (urlFoto != null) {
+      this._urlFoto = urlFoto;
+    }
+    if (ultimaOcorrencia != null) {
+      this._ultimaOcorrencia = ultimaOcorrencia;
+    }
+  }
+
+  int? get id => _id;
+  set id(int? id) => _id = id;
+  String? get nome => _nome;
+  set nome(String? nome) => _nome = nome;
+  int? get idade => _idade;
+  set idade(int? idade) => _idade = idade;
+  String? get sexo => _sexo;
+  set sexo(String? sexo) => _sexo = sexo;
+  bool? get vivo => _vivo;
+  set vivo(bool? vivo) => _vivo = vivo;
+  String? get urlFoto => _urlFoto;
+  set urlFoto(String? urlFoto) => _urlFoto = urlFoto;
+  UltimaOcorrencia? get ultimaOcorrencia => _ultimaOcorrencia;
+  set ultimaOcorrencia(UltimaOcorrencia? ultimaOcorrencia) =>
+      _ultimaOcorrencia = ultimaOcorrencia;
 
   PessoasModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    nome = json['nome'];
-    idade = json['idade'];
-    sexo = json['sexo'];
-    vivo = json['vivo'];
-    urlFoto = json['urlFoto'];
-    ultimaOcorrencia = json['ultimaOcorrencia'] != null
+    _id = json['id'];
+    _nome = json['nome'];
+    _idade = json['idade'];
+    _sexo = json['sexo'];
+    _vivo = json['vivo'];
+    _urlFoto = json['urlFoto'];
+    _ultimaOcorrencia = json['ultimaOcorrencia'] != null
         ? new UltimaOcorrencia.fromJson(json['ultimaOcorrencia'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['nome'] = this.nome;
-    data['idade'] = this.idade;
-    data['sexo'] = this.sexo;
-    data['vivo'] = this.vivo;
-    data['urlFoto'] = this.urlFoto;
-    if (this.ultimaOcorrencia != null) {
-      data['ultimaOcorrencia'] = this.ultimaOcorrencia!.toJson();
+    data['id'] = this._id;
+    data['nome'] = this._nome;
+    data['idade'] = this._idade;
+    data['sexo'] = this._sexo;
+    data['vivo'] = this._vivo;
+    data['urlFoto'] = this._urlFoto;
+    if (this._ultimaOcorrencia != null) {
+      data['ultimaOcorrencia'] = this._ultimaOcorrencia!.toJson();
     }
     return data;
   }
 }
 
 class UltimaOcorrencia {
-  String? dtDesaparecimento;
-  Null? dataLocalizacao;
-  bool? encontradoVivo;
-  String? localDesaparecimentoConcat;
-  OcorrenciaEntrevDesapDTO? ocorrenciaEntrevDesapDTO;
-  Null? listaCartaz;
-  int? ocoId;
+  String? _dtDesaparecimento;
+  Null? _dataLocalizacao;
+  bool? _encontradoVivo;
+  String? _localDesaparecimentoConcat;
+  OcorrenciaEntrevDesapDTO? _ocorrenciaEntrevDesapDTO;
+  Null? _listaCartaz;
+  int? _ocoId;
 
   UltimaOcorrencia(
-      {this.dtDesaparecimento,
-        this.dataLocalizacao,
-        this.encontradoVivo,
-        this.localDesaparecimentoConcat,
-        this.ocorrenciaEntrevDesapDTO,
-        this.listaCartaz,
-        this.ocoId});
+      {String? dtDesaparecimento,
+        Null? dataLocalizacao,
+        bool? encontradoVivo,
+        String? localDesaparecimentoConcat,
+        OcorrenciaEntrevDesapDTO? ocorrenciaEntrevDesapDTO,
+        Null? listaCartaz,
+        int? ocoId}) {
+    if (dtDesaparecimento != null) {
+      this._dtDesaparecimento = dtDesaparecimento;
+    }
+    if (dataLocalizacao != null) {
+      this._dataLocalizacao = dataLocalizacao;
+    }
+    if (encontradoVivo != null) {
+      this._encontradoVivo = encontradoVivo;
+    }
+    if (localDesaparecimentoConcat != null) {
+      this._localDesaparecimentoConcat = localDesaparecimentoConcat;
+    }
+    if (ocorrenciaEntrevDesapDTO != null) {
+      this._ocorrenciaEntrevDesapDTO = ocorrenciaEntrevDesapDTO;
+    }
+    if (listaCartaz != null) {
+      this._listaCartaz = listaCartaz;
+    }
+    if (ocoId != null) {
+      this._ocoId = ocoId;
+    }
+  }
+
+  String? get dtDesaparecimento => _dtDesaparecimento;
+  set dtDesaparecimento(String? dtDesaparecimento) =>
+      _dtDesaparecimento = dtDesaparecimento;
+  Null? get dataLocalizacao => _dataLocalizacao;
+  set dataLocalizacao(Null? dataLocalizacao) =>
+      _dataLocalizacao = dataLocalizacao;
+  bool? get encontradoVivo => _encontradoVivo;
+  set encontradoVivo(bool? encontradoVivo) => _encontradoVivo = encontradoVivo;
+  String? get localDesaparecimentoConcat => _localDesaparecimentoConcat;
+  set localDesaparecimentoConcat(String? localDesaparecimentoConcat) =>
+      _localDesaparecimentoConcat = localDesaparecimentoConcat;
+  OcorrenciaEntrevDesapDTO? get ocorrenciaEntrevDesapDTO =>
+      _ocorrenciaEntrevDesapDTO;
+  set ocorrenciaEntrevDesapDTO(
+      OcorrenciaEntrevDesapDTO? ocorrenciaEntrevDesapDTO) =>
+      _ocorrenciaEntrevDesapDTO = ocorrenciaEntrevDesapDTO;
+  Null? get listaCartaz => _listaCartaz;
+  set listaCartaz(Null? listaCartaz) => _listaCartaz = listaCartaz;
+  int? get ocoId => _ocoId;
+  set ocoId(int? ocoId) => _ocoId = ocoId;
 
   UltimaOcorrencia.fromJson(Map<String, dynamic> json) {
-    dtDesaparecimento = json['dtDesaparecimento'];
-    dataLocalizacao = json['dataLocalizacao'];
-    encontradoVivo = json['encontradoVivo'];
-    localDesaparecimentoConcat = json['localDesaparecimentoConcat'];
-    ocorrenciaEntrevDesapDTO = json['ocorrenciaEntrevDesapDTO'] != null
+    _dtDesaparecimento = json['dtDesaparecimento'];
+    _dataLocalizacao = json['dataLocalizacao'];
+    _encontradoVivo = json['encontradoVivo'];
+    _localDesaparecimentoConcat = json['localDesaparecimentoConcat'];
+    _ocorrenciaEntrevDesapDTO = json['ocorrenciaEntrevDesapDTO'] != null
         ? new OcorrenciaEntrevDesapDTO.fromJson(
         json['ocorrenciaEntrevDesapDTO'])
         : null;
-    listaCartaz = json['listaCartaz'];
-    ocoId = json['ocoId'];
+    _listaCartaz = json['listaCartaz'];
+    _ocoId = json['ocoId'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['dtDesaparecimento'] = this.dtDesaparecimento;
-    data['dataLocalizacao'] = this.dataLocalizacao;
-    data['encontradoVivo'] = this.encontradoVivo;
-    data['localDesaparecimentoConcat'] = this.localDesaparecimentoConcat;
-    if (this.ocorrenciaEntrevDesapDTO != null) {
+    data['dtDesaparecimento'] = this._dtDesaparecimento;
+    data['dataLocalizacao'] = this._dataLocalizacao;
+    data['encontradoVivo'] = this._encontradoVivo;
+    data['localDesaparecimentoConcat'] = this._localDesaparecimentoConcat;
+    if (this._ocorrenciaEntrevDesapDTO != null) {
       data['ocorrenciaEntrevDesapDTO'] =
-          this.ocorrenciaEntrevDesapDTO!.toJson();
+          this._ocorrenciaEntrevDesapDTO!.toJson();
     }
-    data['listaCartaz'] = this.listaCartaz;
-    data['ocoId'] = this.ocoId;
+    data['listaCartaz'] = this._listaCartaz;
+    data['ocoId'] = this._ocoId;
     return data;
   }
 }
 
 class OcorrenciaEntrevDesapDTO {
-  String? informacao;
-  String? vestimentasDesaparecido;
+  String? _informacao;
+  String? _vestimentasDesaparecido;
 
-  OcorrenciaEntrevDesapDTO({this.informacao, this.vestimentasDesaparecido});
+  OcorrenciaEntrevDesapDTO(
+      {String? informacao, String? vestimentasDesaparecido}) {
+    if (informacao != null) {
+      this._informacao = informacao;
+    }
+    if (vestimentasDesaparecido != null) {
+      this._vestimentasDesaparecido = vestimentasDesaparecido;
+    }
+  }
+
+  String? get informacao => _informacao;
+  set informacao(String? informacao) => _informacao = informacao;
+  String? get vestimentasDesaparecido => _vestimentasDesaparecido;
+  set vestimentasDesaparecido(String? vestimentasDesaparecido) =>
+      _vestimentasDesaparecido = vestimentasDesaparecido;
 
   OcorrenciaEntrevDesapDTO.fromJson(Map<String, dynamic> json) {
-    informacao = json['informacao'];
-    vestimentasDesaparecido = json['vestimentasDesaparecido'];
+    _informacao = json['informacao'];
+    _vestimentasDesaparecido = json['vestimentasDesaparecido'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['informacao'] = this.informacao;
-    data['vestimentasDesaparecido'] = this.vestimentasDesaparecido;
+    data['informacao'] = this._informacao;
+    data['vestimentasDesaparecido'] = this._vestimentasDesaparecido;
     return data;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/paginas/pessoas_detalhes_desaparecida.dart';
-import '../api_service/api_repository.dart';
+import 'package:myapp/api_service/api_repository.dart';
 import '../models/pessoa_model.dart';
+import 'package:intl/intl.dart';
 
 class PessoasDesaparecidas extends StatefulWidget {
   const PessoasDesaparecidas({super.key});
@@ -11,172 +11,144 @@ class PessoasDesaparecidas extends StatefulWidget {
 }
 
 class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
-  final ApiRepositorio _apiRepositorio = ApiRepositorio();
-  final ScrollController _scrollController = ScrollController();
-
-  List<PessoasModel> _pessoas = [];
-  int _currentPage = 1;
-  bool _isLoading = false;
-  bool _hasMoreData = true;
+  late Future<List<PessoasModel>> futurePessoasModel;
+  final apiService = ApiRepositorio();
+  int? _hoveredIndex;
 
   @override
   void initState() {
     super.initState();
-    _fetchPessoas();
-    _scrollController.addListener(_onScroll);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _fetchPessoas() async {
-    if (_isLoading) return;
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      final newPessoas = await _apiRepositorio.getPessoas(page: _currentPage, registros: 10);
-      if (newPessoas.isEmpty) {
-        setState(() {
-          _hasMoreData = false;
-        });
-      } else {
-        setState(() {
-          _pessoas.addAll(newPessoas);
-          _currentPage++;
-        });
-      }
-    } catch (e) {
-      print('Erro ao carregar dados: $e');
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
-
-  void _onScroll() {
-    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !_isLoading && _hasMoreData) {
-      _fetchPessoas();
-    }
+    futurePessoasModel = apiService.getPessoas();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pessoas.isEmpty && _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _pessoas.isEmpty && !_isLoading
-          ? const Center(child: Text('Nenhuma pessoa desaparecida encontrada.'))
-          : GridView.builder(
-        controller: _scrollController,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: (MediaQuery.of(context).size.width / 200).floor(),
-          crossAxisSpacing: 2,
-          mainAxisSpacing: 2,
-          childAspectRatio: 0.4,
-        ),
-        itemCount: _pessoas.length + (_hasMoreData ? 1 : 0),
-        itemBuilder: (BuildContext context, int index) {
-          if (index < _pessoas.length) {
-            final pessoa = _pessoas[index];
-            return MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PessoasDetalhes(pessoa: pessoa),
-                    ),
-                  );
-                  print(pessoa.nome);
-                  print(pessoa.vivo);
-                  print(
-                    pessoa.ultimaOcorrencia!.dataLocalizacao ??
-                        "Sem dada de Localização",
-                  );
+    return FutureBuilder<List<PessoasModel>>(
+      future: futurePessoasModel,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Erro: ${snapshot.error}');
+        } else if (snapshot.hasData) {
+          final pessoas = snapshot.data!;
+          if (pessoas.isEmpty) {
+            return const Text('Nenhuma pessoa encontrada');
+          }
+
+          return Wrap(
+            spacing: 16.0, // Espaço horizontal entre os cards
+            runSpacing: 16.0, // Espaço vertical entre as linhas
+            alignment: WrapAlignment.center, // Centraliza os cards
+            children: pessoas.map((pessoa) {
+              // 1. Converte a string da API para um objeto DateTime
+              final dtDesaparecimento = DateTime.parse(
+                pessoa.ultimaOcorrencia!.dtDesaparecimento!,
+              );
+
+              // 2. Formata o objeto DateTime para o formato desejado (dd/MM/yyyy)
+              final dataFormatada = DateFormat(
+                'dd/MM/yyyy',
+              ).format(dtDesaparecimento);
+
+              return MouseRegion(
+                onEnter: (event) {
+                  setState(() {
+                    _hoveredIndex = pessoas.indexOf(pessoa);
+                  });
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.black12, width: 3),
-                    ),
-                    child: Column(
-                      children: [
-                        pessoa.urlFoto != null
-                            ? Image.network(
-                          pessoa.urlFoto!,
-                          height: 250,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(Icons.person, size: 200);
-                          },
-                        )
-                            : const Icon(
-                          Icons.person,
-                          size: 200,
-                          color: Colors.black,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 5,
-                              top: 2,
-                              right: 2,
-                              bottom: 2,
+                onExit: (event) {
+                  setState(() {
+                    _hoveredIndex = null;
+                  });
+                },
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    print(pessoa.nome);
+                  },
+                  child: SizedBox(
+                    width: 300.0,
+                    height:
+                        490.0, // Largura fixa de cada card, eles se ajustarão automaticamente.
+                    child: Card(
+                      elevation: _hoveredIndex == pessoas.indexOf(pessoa)
+                          ? 8
+                          : 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+
+                          if (pessoa.urlFoto != null &&
+                              pessoa.urlFoto!.isNotEmpty)
+                            AspectRatio(
+                              aspectRatio: 1 / 1,
+
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                ),
+                                child: Image.network(
+                                  pessoa.urlFoto!,
+                                  fit: BoxFit.cover,
+                                  height: 250, // Altura fixa da imagem
+                                ),
+                              ),
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                              vertical: 4.0,
                             ),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
+
                                 Text(
-                                  pessoa.nome ?? 'Nome não informado',
+                                  pessoa.nome ?? "Sem Nome",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 Text(
-                                  '${(pessoa.idade ?? 'idade não informada')} anos, ${(pessoa.sexo ?? 'sexo não informado')}',
-                                  style: const TextStyle(
-                                    fontSize: 15,
+                                  '${pessoa.idade} Anos, ${pessoa.sexo} ',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
                                     fontWeight: FontWeight.w100,
+                                    fontSize: 13,
                                   ),
                                 ),
-                                const SizedBox(height: 20),
+                                SizedBox(height: 15),
                                 Text(
-                                  'Data: ${pessoa.ultimaOcorrencia?.dtDesaparecimento?.substring(0, 10) ?? 'Não informada'}',
-                                  style: const TextStyle(fontSize: 15),
-                                ),
-                                Text(
-                                  'Local: ${pessoa.ultimaOcorrencia?.localDesaparecimentoConcat ?? 'Não informado'}',
-                                  style: const TextStyle(fontSize: 15),
+                                  'Data: $dataFormatada ',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w100,
+                                    fontSize: 13,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          } else {
-            return const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.0),
-              child: Center(child: CircularProgressIndicator()),
-            );
-          }
-        },
-      ),
+              );
+            }).toList(),
+          );
+        }
+        return const Text('Nenhum dado disponível.');
+      },
     );
   }
 }

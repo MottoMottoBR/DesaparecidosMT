@@ -15,63 +15,56 @@ class TopoPoliciaCivil extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 60),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // Bloco de Logo e Títulos
-            Expanded(
-              child: Row(
-                children: [
-                  Image.asset(
-                    "lib/imagens/logocivil.png",
-                    width: 80,
-                    height: 80,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          StringTxT.Titulo,
-                          style: GoogleFonts.adamina(
-                            textStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          ),
+            Row(
+              children: [
+                Image.asset(
+                  "lib/imagens/logocivil.png",
+                  width: 80,
+                  height: 80,
+                ),
+                //espaco entre a Imagem o e O TEXO POLICIA CIVIL
+                const SizedBox(width: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      StringTxT.Titulo,
+                      style: GoogleFonts.adamina(
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                         ),
-                        Text(
-                          StringTxT.Titulo2,
-                          style: GoogleFonts.adamina(
-                            textStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                    Text(
+                      StringTxT.Titulo2,
+                      style: GoogleFonts.adamina(
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
             // Bloco do Ícone e Título 3
-            Expanded(
-              child: Row(
-                children: [
-                  const Icon(Icons.person_2, color: Colors.white),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      StringTxT.Titulo3,
-                      style: const TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ),
-                ],
-              ),
+            Row(mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const Icon(Icons.person_2, color: Colors.white),
+                const SizedBox(width: 4),
+                Text(
+                  StringTxT.Titulo3,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ],
             ),
           ],
         ),
