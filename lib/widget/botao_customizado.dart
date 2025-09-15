@@ -26,9 +26,10 @@ class _CustomBotaoState extends State<CustomBotao> {
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: Container(
+          height: 50,
           decoration: BoxDecoration(
             color: widget.color,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(5),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
