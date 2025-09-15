@@ -51,7 +51,7 @@ class _HomeState extends State<HomePage> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 150.0,
+                horizontal: 250.0,
                 vertical: 80,
               ), // Ajuste o valor '20.0'
               child: PessoasDesaparecidas(),
