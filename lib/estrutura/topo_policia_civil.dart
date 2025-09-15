@@ -9,26 +9,22 @@ class TopoPoliciaCivil extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [Colors.black, Colors.black87, Colors.black45],
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 60),
+        padding:  EdgeInsets.only(left: 250, right: 250),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // Bloco de Logo e Títulos
             Row(
               children: [
-                Image.asset(
-                  "lib/imagens/logocivil.png",
-                  width: 80,
-                  height: 80,
-                ),
+                Image.asset("lib/imagens/logocivil.png", width: 80, height: 80),
                 //espaco entre a Imagem o e O TEXO POLICIA CIVIL
-                const SizedBox(width: 8),
+                SizedBox(width: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -44,10 +40,7 @@ class TopoPoliciaCivil extends StatelessWidget {
                     Text(
                       StringTxT.Titulo2,
                       style: GoogleFonts.adamina(
-                        textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
+                        textStyle: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
                   ],
@@ -55,14 +48,15 @@ class TopoPoliciaCivil extends StatelessWidget {
               ],
             ),
             // Bloco do Ícone e Título 3
-            Row(mainAxisAlignment: MainAxisAlignment.end,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Icon(Icons.person_2, color: Colors.white),
-                const SizedBox(width: 4),
+                Icon(Icons.person_2, color: Colors.white),
+                SizedBox(width: 4),
                 Text(
                   StringTxT.Titulo3,
-                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ],
             ),
