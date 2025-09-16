@@ -15,117 +15,132 @@ class RodapePage extends StatelessWidget {
           colors: [Colors.black, Colors.black87, Colors.black45],
         ),
       ),
-      child: Padding(
-        padding: EdgeInsets.only(left: 250, right: 250),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Bloco de Logo e Títulos
-            Column(
+      child: Wrap(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 250, right: 250),
+            child: Wrap(
               children: [
                 Row(
-                  children: [
-                    Image.asset(
-                      "lib/imagens/logocivil.png",
-                      width: 75,
-                      height: 75,
-                    ),
-                    //espaco entre a Imagem o e O TEXO POLICIA CIVIL
-                    SizedBox(width: 3),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          StringTxT.Titulo,
-                          style: GoogleFonts.adamina(
-                            textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          StringTxT.Titulo2,
-                          style: GoogleFonts.adamina(
-                            textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            // Bloco De Serviços
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-
-              children: [
-                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Serviços',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    // Bloco de Logo e Títulos
+                    Column(
                       children: [
-                        Text('Agenda', style: TextStyle(color: Colors.white)),
-                        SizedBox(width: 10),
-                        Text(
-                          'Delegacia Digital',
-                          style: TextStyle(color: Colors.white),
+                        Row(
+                          children: [
+                            Image.asset(
+                              "lib/imagens/logocivil.png",
+                              width: 75,
+                              height: 75,
+                            ),
+                            //espaco entre a Imagem o e O TEXO POLICIA CIVIL
+                            SizedBox(width: 3),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  StringTxT.Titulo,
+                                  style: GoogleFonts.adamina(
+                                    textStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  StringTxT.Titulo2,
+                                  style: GoogleFonts.adamina(
+                                    textStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Estatísticas',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Fale Corregedoria',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        SizedBox(width: 10),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    // Bloco De Serviços
+                    Wrap(
                       children: [
-                        Text(
-                          'Contatos / Unidades',
-                          style: TextStyle(color: Colors.white),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Serviços',
+                                  style: TextStyle(color: Colors.white, fontSize: 20),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Agenda',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Delegacia Digital',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Estatísticas',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Fale Corregedoria',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(width: 10),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Contatos / Unidades',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Dicas de Segurança',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Fale com a PJC',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Fale Ouvidoria',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(width: 10),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Dicas de Segurança',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Fale com a PJC',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Fale Ouvidoria',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        SizedBox(width: 10),
                       ],
                     ),
                   ],
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
