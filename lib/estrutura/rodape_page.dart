@@ -75,13 +75,22 @@ class RodapePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('Agenda'),
+                        Text('Agenda', style: TextStyle(color: Colors.white)),
                         SizedBox(width: 10),
-                        Text('Delegacia Digital'),
+                        Text(
+                          'Delegacia Digital',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         SizedBox(width: 10),
-                        Text('Estatísticas'),
+                        Text(
+                          'Estatísticas',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         SizedBox(width: 10),
-                        Text('Fale Corregedoria'),
+                        Text(
+                          'Fale Corregedoria',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         SizedBox(width: 10),
                       ],
                     ),
@@ -89,13 +98,25 @@ class RodapePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('Contatos / Unidades'),
+                        Text(
+                          'Contatos / Unidades',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         SizedBox(width: 10),
-                        Text('Dicas de Segurança'),
+                        Text(
+                          'Dicas de Segurança',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         SizedBox(width: 10),
-                        Text('Fale com a PJC'),
+                        Text(
+                          'Fale com a PJC',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         SizedBox(width: 10),
-                        Text('Fale Ouvidoria'),
+                        Text(
+                          'Fale Ouvidoria',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         SizedBox(width: 10),
                       ],
                     ),
