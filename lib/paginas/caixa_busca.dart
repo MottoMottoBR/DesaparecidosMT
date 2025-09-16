@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../componentes/estatisticas_widget.dart';
 import '../widget/botao_customizado.dart';
 import '../widget/buscar_faixa_etaria.dart';
@@ -14,10 +15,7 @@ class Busca extends StatefulWidget {
 }
 
 class _BackGroudCentralState extends State<Busca> {
-  //final FocusNode _nomeFocusNode = FocusNode();
   final TextEditingController _controller = TextEditingController();
-
-  String _displayText = '';
 
   @override
   void dispose() {
@@ -35,105 +33,136 @@ class _BackGroudCentralState extends State<Busca> {
           fit: BoxFit.cover,
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(90.0),
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                return Column(
-                  children: [
-                    Center(
-                      child: SizedBox(
-                        width: constraints.maxWidth > 500
-                            ? 500
-                            : constraints.maxWidth,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Busca',
-                                  style: GoogleFonts.abel(
-                                    textStyle: const TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  'Digite as informações conhecidas para uma busca mais precisa',
-                                  style: GoogleFonts.abel(
-                                    textStyle: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                CustomTextField(
-                                  hintText: 'Nome',
-                                  labelText: 'Nome',
-                                  controller: _controller,
-                                ),
-                                Text(
-                                  'Faixa Etária:',
-                                  style: GoogleFonts.abel(
-                                    textStyle: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                BuscaFaixaEtaria(),
-                                CaixaSelecao(),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomBotao(
-                                          text: 'Limpar',
-                                          color: Colors.deepOrange,
-                                          icon: Icons.close,
-                                        ),
-                                      ),
-                                    ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          // A linha principal é um Row que irá se adaptar a uma Column em telas pequenas
+          if (constraints.maxWidth > 800) {
+            return _buildWideLayout(constraints);
+          } else {
+            return _buildNarrowLayout();
+          }
+        },
+      ),
+    );
+  }
 
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomBotao(
-                                          text: 'Buscar',
-                                          color: Colors.yellow,
-                                          icon: Icons.search,
-                                          onPressed: (){
-                                            print(_controller.text);
-                                          },
-                                        ),
+  Widget _buildWideLayout(BoxConstraints constraints) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // O Card de busca (lado esquerdo)
+        SizedBox(
+          width: 500, // Largura fixa para telas grandes
+          child: _buildSearchCard(),
+        ),
+        // O Widget de estatísticas (lado direito)
+       // Expanded(child: EstatisticasWidget()),
+      ],
+    );
+  }
 
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
+  Widget _buildNarrowLayout() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+        child: Column(
+          children: [
+            // O Card de busca
+            _buildSearchCard(),
+            const SizedBox(height: 20),
+            // O Widget de estatísticas
+            //EstatisticasWidget(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchCard() {
+    return Card(
+      elevation: 8,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Center(
+              child: Text(
+                'Busca',
+                style: GoogleFonts.abel(
+                  textStyle: const TextStyle(
+                    fontSize: 25,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
             ),
-          ),
-         // EstatisticasWidget(),
-        ],
+            const SizedBox(height: 8),
+            Center(
+              child: Text(
+                'Digite as informações conhecidas para uma busca mais precisa',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.abel(
+                  textStyle: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            CustomTextField(
+              hintText: 'Nome',
+              labelText: 'Nome',
+              controller: _controller,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Faixa Etária:',
+              style: GoogleFonts.abel(
+                textStyle: const TextStyle(
+                  fontSize: 15,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            const BuscaFaixaEtaria(),
+            const SizedBox(height: 16),
+            const CaixaSelecao(),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: CustomBotao(
+                      text: 'Limpar',
+                      color: Colors.deepOrange,
+                      icon: Icons.close,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: CustomBotao(
+                      text: 'Buscar',
+                      color: Colors.yellow,
+                      icon: Icons.search,
+                      onPressed: () {
+                        print(_controller.text);
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
