@@ -50,9 +50,9 @@ class _HomeState extends State<HomePage> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 250.0,
-                vertical: 80,
+              padding:  EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05,
+                vertical: MediaQuery.of(context).size.height * 0.02,
               ), // Ajuste o valor '20.0'
               child: PessoasDesaparecidas(),
             ),

@@ -36,7 +36,7 @@ class _BackGroudCentralState extends State<Busca> {
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(90.0),

@@ -7,7 +7,7 @@ import 'package:myapp/models/pessoas_filtro_model.dart';
 class ApiRepositorio {
   // URL base para todos os endpoints da API
   final String _baseUrl =
-      'https://abitus-api.geia.vip/v1/pessoas/aberto/dinamico?registros=150';
+      'https://abitus-api.geia.vip/v1/pessoas/aberto/dinamico?registros=50';
 
   Future<List<PessoasModel>> getPessoas() async {
     final response = await http.get(Uri.parse(_baseUrl));
