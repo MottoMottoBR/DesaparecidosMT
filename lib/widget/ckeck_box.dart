@@ -51,11 +51,11 @@ class _CaixaSelecaoState extends State<CaixaSelecao> {
                       ),
                     ),
                     RadioListTile.adaptive(
-                      title: const Text("Masculino"),
+                      title: Text("Masculino"),
                       value: Sexo.masculino,
                     ),
                     RadioListTile.adaptive(
-                      title: const Text("Feminino"),
+                      title: Text("Feminino"),
                       value: Sexo.feminino,
                     ),
                   ],
@@ -96,7 +96,6 @@ class _CaixaSelecaoState extends State<CaixaSelecao> {
             ),
           ],
         ),
-
       ],
     );
   }
