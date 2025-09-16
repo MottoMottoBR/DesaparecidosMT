@@ -15,15 +15,17 @@ class TopoPoliciaCivil extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding:  EdgeInsets.only(left: 250, right: 250),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding: const EdgeInsets.symmetric(horizontal: 20), // Ajuste o padding para ser mais adaptável
+        child: Wrap(
+          alignment: WrapAlignment.spaceBetween, // Alinha o espaço entre os elementos
+          spacing: 16.0, // Espaçamento horizontal entre os elementos
+          runSpacing: 8.0, // Espaçamento vertical entre as linhas
           children: [
             // Bloco de Logo e Títulos
             Row(
+              mainAxisSize: MainAxisSize.min, // Ocupa o mínimo de espaço horizontal
               children: [
                 Image.asset("lib/imagens/logocivil.png", width: 80, height: 80),
-                //espaco entre a Imagem o e O TEXO POLICIA CIVIL
                 SizedBox(width: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,8 +51,7 @@ class TopoPoliciaCivil extends StatelessWidget {
             ),
             // Bloco do Ícone e Título 3
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.person_2, color: Colors.white),
                 SizedBox(width: 4),
