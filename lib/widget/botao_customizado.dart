@@ -4,8 +4,8 @@ class CustomBotao extends StatefulWidget {
   final String text;
   final Color color;
   final VoidCallback? onPressed;
+  final IconData icon;
 
-  final icon;
   const CustomBotao({
     super.key,
     required this.text,
