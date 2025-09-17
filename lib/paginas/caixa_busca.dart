@@ -72,7 +72,7 @@ class _BackGroudCentralState extends State<Busca> {
             _buildSearchCard(),
             const SizedBox(height: 20),
             // O Widget de estatísticas
-            //EstatisticasWidget(),
+            EstatisticasWidget(),
           ],
         ),
       ),

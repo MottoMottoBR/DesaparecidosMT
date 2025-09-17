@@ -43,16 +43,8 @@ class _HomeState extends State<HomePage> {
                   Container(
                     width: 650,
                     height: 3,
-                    decoration: BoxDecoration( color: Colors.black),
-                  )
-                  // Text(
-                  //   "_____________________________________________________________________",
-                  //   overflow: TextOverflow.ellipsis,
-                  //   style: const TextStyle(
-                  //     fontWeight: FontWeight.bold,
-                  //     color: Colors.black,
-                  //   ),
-                  // ),
+                    decoration: BoxDecoration(color: Colors.black),
+                  ),
                 ],
               ),
               Padding(
