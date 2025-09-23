@@ -38,10 +38,11 @@ class _HomeState extends State<HomePage> {
                       color: Colors.black,
                     ),
                   ),
-                  Container(
-                    width: 650,
-                    height: 3,
-                    decoration: BoxDecoration(color: Colors.black),
+                  Divider(
+                    color: Colors.black,
+                    thickness: 0.8,
+                    indent: 500,
+                    endIndent: 500,
                   ),
                 ],
               ),
