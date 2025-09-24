@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/paginas/home_page.dart';
+import 'package:myapp/paginas/pessoa_detalhes.dart';
 import 'package:myapp/ultis/strings.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: StringTxT.TituloBarra,
-      home: const HomePage(),
+      home: const PessoaDetalhes(),
     );
   }
 }
