@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 
-class PessoaDetalhes extends StatefulWidget {
+class PessoaDetalhes extends StatelessWidget {
   const PessoaDetalhes({super.key});
 
-  @override
-  State<PessoaDetalhes> createState() => _PessoaDetalhesState();
-}
-
-class _PessoaDetalhesState extends State<PessoaDetalhes> {
   @override
   Widget build(BuildContext context) {
     // Pega a largura da tela para decidir o layout
@@ -19,8 +14,9 @@ class _PessoaDetalhesState extends State<PessoaDetalhes> {
     // Retorna um Column para telas menores e um Row para telas maiores
     Widget layoutChildren = screenWidth < breakpoint
         ? Column(
+      // Em telas pequenas, eles ficam um abaixo do outro
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center, // Centraliza horizontalmente os filhos
+      crossAxisAlignment: CrossAxisAlignment.center, // Centraliza horizontalmente
       children: [
         Container(
           decoration: BoxDecoration(
@@ -31,12 +27,12 @@ class _PessoaDetalhesState extends State<PessoaDetalhes> {
           height: 500.0,
           child: const Center(child: Icon(Icons.person)),
         ),
-
+        // NÃO adiciona espaço vertical em telas pequenas
         Container(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
               bottomRight: Radius.circular(3),
-              topRight: Radius.circular(3),
+              bottomLeft: Radius.circular(3),
             ),
             color: Colors.blue,
           ),
@@ -47,7 +43,9 @@ class _PessoaDetalhesState extends State<PessoaDetalhes> {
       ],
     )
         : Row(
+      // Em telas grandes, eles ficam um ao lado do outro
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start, // Alinha os filhos no topo
       children: [
         Container(
           decoration: BoxDecoration(
@@ -58,19 +56,24 @@ class _PessoaDetalhesState extends State<PessoaDetalhes> {
           height: 500.0,
           child: const Center(child: Icon(Icons.person)),
         ),
-
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(3),
-              topRight: Radius.circular(3),
+        // Usa um Column para controlar o espaço vertical do container azul
+        Column(
+          children: [
+            const SizedBox(height: 50.0), // Adiciona o espaço do topo
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(3),
+                  topRight: Radius.circular(3),
+                ),
+                color: Colors.blue,
+              ),
+              width: 300.0,
+              height: 25.0,
+              child: const Center(child: Icon(Icons.person)),
             ),
-            color: Colors.blue,
-          ),
-          width: 300.0,
-          height: 25.0,
-          child: const Center(child: Icon(Icons.person)),
-        ),
+          ],
+        )
       ],
     );
 
