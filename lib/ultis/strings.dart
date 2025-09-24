@@ -8,6 +8,5 @@ class StringTxT {
   static const String Titulo3 = 'Pessoas Desaparecidas';
   static const String TituloBarra = 'Desaparecidos PJC-MT';
 
-
-//Pessoas Detalhes
+  //Pessoas Detalhes
 }
