@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/api_service/api_repository.dart';
+import 'package:myapp/paginas/pessoas_detalhes_desaparecida.dart';
 import '../models/pessoa_model.dart';
 import 'package:intl/intl.dart';
 
@@ -95,13 +96,10 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                         child: GestureDetector(
                           onTap: () {
                             print(pessoa.nome);
-                            print(pessoa.idade);
-                            print(pessoa.sexo);
-                            print(
-                              pessoa
-                                  .ultimaOcorrencia!
-                                  .localDesaparecimentoConcat,
-                            );
+                            Navigator.push(context, MaterialPageRoute(builder: (context){
+                              return PessoasDetalhes(pessoa: pessoa);
+
+                            }));
                           },
                           child: SizedBox(
                             width: 300.0,
