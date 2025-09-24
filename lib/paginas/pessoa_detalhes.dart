@@ -70,7 +70,8 @@ class PessoaDetalhes extends StatelessWidget {
               ),
               width: 300.0,
               height: 25.0,
-              child: const Center(child: Icon(Icons.person)),
+              //Status Desaparecios ou Encontrado
+              child: const Center(child: Text('Desaparecidos')),
             ),
           ],
         )

@@ -7,4 +7,6 @@ class StringTxT {
   static const String Titulo2 = 'Estado de Mato Grosso';
   static const String Titulo3 = 'Pessoas Desaparecidas';
   static const String TituloBarra = 'Desaparecidos PJC-MT';
-}
+
+
+  //Pessoas Detalhes
