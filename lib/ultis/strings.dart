@@ -1,5 +1,7 @@
 // Arquivo Resposavel pelos Texto Exibidos na TELA
 
+import 'dart:core';
+
 class StringTxT {
   StringTxT._();
 
@@ -9,4 +11,5 @@ class StringTxT {
   static const String TituloBarra = 'Desaparecidos PJC-MT';
 
   //Pessoas Detalhes
+  static const String textDesaparecido = 'Desaparecido';
 }
