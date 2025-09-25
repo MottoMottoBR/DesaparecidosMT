@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../ultis/strings.dart';
+import '../widget/infoPessoa.dart';
 
 class PessoaDetalhes extends StatelessWidget {
   const PessoaDetalhes({super.key});
@@ -16,7 +17,9 @@ class PessoaDetalhes extends StatelessWidget {
     // Define um breakpoint para a mudança de layout
     const double breakpoint = 800.0;
 
-    // Retorna um Column para telas menores e um Row para telas maiores
+    /*
+       PARA TELAS ***Pequena*** SERA RENDERIZADO ESSE BLOCO DE CODIGO
+     */
     Widget layoutChildren = screenWidth < breakpoint
         ? Column(
             // Em telas pequenas, eles ficam um abaixo do outro
@@ -44,15 +47,18 @@ class PessoaDetalhes extends StatelessWidget {
                 ),
                 width: 300.0,
                 height: alturaContainer,
-                child: const Center(child: Text(StringTxT.textDesaparecido)),
+                child: const Center(child: Text(StringTxT.textoDesaparecido)),
               ),
+              Padding(padding: const EdgeInsets.all(8.0), child: InfoPessoa()),
             ],
           )
         : Row(
-            // Em telas grandes, eles ficam um ao lado do outro
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment:
-                CrossAxisAlignment.start, // Alinha os filhos no topo
+            /*
+                PARA TELAS **GRANDE**** SERA RENDERIZADO ESSE BLOCO DE CODIGO
+              */
+
+            // bloco com o Container que vai receber a imagem da pessoa
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -65,6 +71,7 @@ class PessoaDetalhes extends StatelessWidget {
               ),
               // Usa um Column para controlar o espaço vertical do container azul
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 50.0), // Adiciona o espaço do topo
                   Container(
@@ -73,24 +80,25 @@ class PessoaDetalhes extends StatelessWidget {
                         bottomRight: Radius.circular(10),
                         topRight: Radius.circular(10),
                       ),
-                      color: Colors.red,
+                      color: Colors.blue,
                     ),
-                    width: 300.0,
+                    width: 240.0,
                     height: alturaContainer,
                     //Status Desaparecios ou Encontrado
-                    child: Center(
-                      //ajusta o texto dettro do container
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: Text(StringTxT.textDesaparecido),
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        StringTxT.textoDesaparecido.toUpperCase(),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
+                  InfoPessoa(),
                 ],
               ),
             ],
           );
 
-    return Center(child: layoutChildren);
+    return Scaffold(body: layoutChildren);
   }
 }
