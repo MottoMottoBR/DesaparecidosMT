@@ -44,45 +44,41 @@ class PessoaDetalhes extends StatelessWidget {
               ),
             ],
           )
-        : SizedBox(
-            height: 450,
-            width: 800,
-            child: Center(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment
-                    .start, // Mantém o alinhamento no topo da Row
-                children: [
-                  // Lado esquerdo: a foto
-                  Expanded(
-                    flex: 1,
-                    child: CustonContainerFoto(
-                      urlFoto: pessoaDetalhes.urlFoto!,
-                    ),
-                  ),
-
-                  // Lado direito: o bloco de detalhes
-                  Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 50.0,
-                      ), // Adiciona um padding no topo
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          StatusIndicador(
-                            indicadorTitulo: StringTxT.textoDesaparecido,
-                          ),
-                          const SizedBox(height: 10),
-                          InfoPessoa(pessoa: pessoaDetalhes),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+        : Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment
+                .start, // Mantém o alinhamento no topo da Row
+            children: [
+              // Lado esquerdo: a foto
+              Expanded(
+                flex: 1,
+                child: CustonContainerFoto(
+                  urlFoto: pessoaDetalhes.urlFoto!,
+                ),
               ),
-            ),
-          );
+
+              // Lado direito: o bloco de detalhes
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 50.0,
+                  ), // Adiciona um padding no topo
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      StatusIndicador(
+                        indicadorTitulo: StringTxT.textoDesaparecido,
+                      ),
+                      const SizedBox(height: 10),
+                      InfoPessoa(pessoa: pessoaDetalhes),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
 
     // O Center no Scaffold garante que o layoutChildren seja centralizado na tela.
     return Scaffold(body: Center(child: layoutChildren));
