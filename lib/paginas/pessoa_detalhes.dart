@@ -24,8 +24,7 @@ class PessoaDetalhes extends StatelessWidget {
         ? Column(
             // Em telas pequenas, eles ficam um abaixo do outro
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment:
-                CrossAxisAlignment.center, // Centraliza horizontalmente
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -36,6 +35,7 @@ class PessoaDetalhes extends StatelessWidget {
                 height: 500.0,
                 child: const Center(child: Icon(Icons.person)),
               ),
+
               // NÃO adiciona espaço vertical em telas pequenas
               Container(
                 decoration: BoxDecoration(
@@ -49,7 +49,7 @@ class PessoaDetalhes extends StatelessWidget {
                 height: alturaContainer,
                 child: const Center(child: Text(StringTxT.textoDesaparecido)),
               ),
-              Padding(padding: const EdgeInsets.all(8.0), child: InfoPessoa()),
+              InfoPessoa(),
             ],
           )
         : Row(
@@ -72,6 +72,7 @@ class PessoaDetalhes extends StatelessWidget {
               // Usa um Column para controlar o espaço vertical do container azul
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(height: 50.0), // Adiciona o espaço do topo
                   Container(
@@ -80,7 +81,7 @@ class PessoaDetalhes extends StatelessWidget {
                         bottomRight: Radius.circular(10),
                         topRight: Radius.circular(10),
                       ),
-                      color: Colors.blue,
+                      color: Colors.red,
                     ),
                     width: 240.0,
                     height: alturaContainer,

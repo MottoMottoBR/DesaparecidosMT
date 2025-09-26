@@ -16,12 +16,26 @@ class InfoPessoa extends StatefulWidget {
 class _InfoPessoaState extends State<InfoPessoa> {
   @override
   Widget build(BuildContext context) {
+    //Pega a largura da tela para decidir o layout
+    final screenWidth = MediaQuery.of(context).size.width;
+    const double beackpoint = 800.0;
+
+    //define o alinhamento para : CENTER para telas PEQUENAS, Start para telas GRANDES
+    final alignment = screenWidth < beackpoint
+        ? CrossAxisAlignment.center
+        : CrossAxisAlignment.start;
+
     return Column(
+      //Usa o aliamento dinamico
+      crossAxisAlignment: alignment,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Text(StringTxT.pessoaNome),
+        Text('Alessandro Araujo '),
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text('Idade: ${StringTxT.pessoaIdade}'),
+            SizedBox(width: 4),
             Text(StringTxT.pessoaSexo),
           ],
         ),
