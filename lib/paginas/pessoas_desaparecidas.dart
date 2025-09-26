@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/api_service/api_repository.dart';
+import 'package:myapp/paginas/pessoa_detalhes.dart';
 import '../models/pessoa_model.dart';
 import 'package:intl/intl.dart';
 
@@ -96,10 +97,14 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
                           onTap: () {
-                            print(pessoa.nome);
-                            print(pessoa.idade);
-                            print(pessoa.sexo);
-                            print(pessoa.ultimaOcorrencia!.localDesaparecimentoConcat);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    PessoaDetalhes(pessoaDetalhes: pessoa,),
+                              ),
+
+                            );
                           },
                           child: SizedBox(
                             width: 300.0,
@@ -112,7 +117,8 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  if (pessoa.urlFoto != null && pessoa.urlFoto!.isNotEmpty)
+                                  if (pessoa.urlFoto != null &&
+                                      pessoa.urlFoto!.isNotEmpty)
                                     AspectRatio(
                                       aspectRatio: 1 / 1,
                                       child: ClipRRect(
@@ -124,13 +130,14 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                                           pessoa.urlFoto!,
                                           fit: BoxFit.cover,
                                           height: 250,
-                                          errorBuilder: (context, error, stackTrace) {
-                                            return Image.asset(
-                                              'lib/imagens/user.png',
-                                              fit: BoxFit.cover,
-                                              height: 250,
-                                            );
-                                          },
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                                return Image.asset(
+                                                  'lib/imagens/user.png',
+                                                  fit: BoxFit.cover,
+                                                  height: 250,
+                                                );
+                                              },
                                         ),
                                       ),
                                     ),
@@ -142,19 +149,25 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
                                         children: [
                                           Text(
                                             pessoa.nome ?? "Sem Nome",
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(fontWeight: FontWeight.bold),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                           Text(
                                             '${pessoa.idade} Anos, ${pessoa.sexo} ',
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(fontWeight: FontWeight.w100, fontSize: 13),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize: 13,
+                                            ),
                                           ),
                                           const SizedBox(height: 15),
                                           RichText(
@@ -162,11 +175,15 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                                               children: [
                                                 const TextSpan(
                                                   text: 'Data: ',
-                                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                                 TextSpan(
                                                   text: dataFormatada,
-                                                  style: const TextStyle(fontWeight: FontWeight.w100),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -176,11 +193,17 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                                               children: [
                                                 const TextSpan(
                                                   text: 'Local: ',
-                                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                                 TextSpan(
-                                                  text: pessoa.ultimaOcorrencia!.localDesaparecimentoConcat,
-                                                  style: const TextStyle(fontWeight: FontWeight.w100),
+                                                  text: pessoa
+                                                      .ultimaOcorrencia!
+                                                      .localDesaparecimentoConcat,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
                                                 ),
                                               ],
                                             ),

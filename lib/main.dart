@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: StringTxT.TituloBarra,
-      home: const PessoaDetalhes(),
+      home: const HomePage(),
     );
   }
 }

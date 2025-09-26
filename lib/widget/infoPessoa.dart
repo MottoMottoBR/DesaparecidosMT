@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/models/pessoa_model.dart';
 import 'package:myapp/ultis/strings.dart';
 
 /*
@@ -6,14 +7,10 @@ import 'package:myapp/ultis/strings.dart';
   ele pode ser reutilizado em outras forem nescessario
    */
 
-class InfoPessoa extends StatefulWidget {
-  const InfoPessoa({super.key});
+class InfoPessoa extends StatelessWidget {
+  final PessoasModel pessoa;
+  const InfoPessoa({super.key, required this.pessoa});
 
-  @override
-  State<InfoPessoa> createState() => _InfoPessoaState();
-}
-
-class _InfoPessoaState extends State<InfoPessoa> {
   @override
   Widget build(BuildContext context) {
     //Pega a largura da tela para decidir o layout
@@ -26,11 +23,11 @@ class _InfoPessoaState extends State<InfoPessoa> {
         : CrossAxisAlignment.start;
 
     return Column(
-      //Usa o aliamento dinamico
+      //Usa o alinhamento dinamico
       crossAxisAlignment: alignment,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Alessandro Araujo '),
+        Text('Nome: ${pessoa.nome}'),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -41,7 +38,7 @@ class _InfoPessoaState extends State<InfoPessoa> {
         ),
         const SizedBox(height: 10),
         Container(
-          width: 150,
+          width: 250,
           height: 1,
           decoration: BoxDecoration(color: Colors.black38),
         ),
