@@ -44,30 +44,44 @@ class PessoaDetalhes extends StatelessWidget {
               ),
             ],
           )
-        : Row(
-            /*
-                PARA TELAS **GRANDE**** SERA RENDERIZADO ESSE BLOCO DE CODIGO
-              */
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // bloco com o Container que vai receber a imagem da pessoa
-              CustonContainerFoto(urlFoto: pessoaDetalhes.urlFoto!),
-
-              // Espaço entre a imagem e a coluna de detalhes
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+        : SizedBox(
+            height: 450,
+            width: 800,
+            child: Center(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment
+                    .start, // Mantém o alinhamento no topo da Row
                 children: [
-                  const SizedBox(height: 250.0), // Adiciona o espaço do topo
-                  //indicador de statatus
-                  StatusIndicador(indicadorTitulo: StringTxT.textoDesaparecido),
+                  // Lado esquerdo: a foto
+                  Expanded(
+                    flex: 1,
+                    child: CustonContainerFoto(
+                      urlFoto: pessoaDetalhes.urlFoto!,
+                    ),
+                  ),
 
-                  //Parte de detalhes da pessoa
-                  InfoPessoa(pessoa: pessoaDetalhes),
+                  // Lado direito: o bloco de detalhes
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 50.0,
+                      ), // Adiciona um padding no topo
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          StatusIndicador(
+                            indicadorTitulo: StringTxT.textoDesaparecido,
+                          ),
+                          const SizedBox(height: 10),
+                          InfoPessoa(pessoa: pessoaDetalhes),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ],
+            ),
           );
 
     // O Center no Scaffold garante que o layoutChildren seja centralizado na tela.
