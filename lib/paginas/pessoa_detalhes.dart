@@ -4,6 +4,7 @@ import 'package:myapp/ultis/app_styles.dart';
 
 import '../ultis/strings.dart';
 import '../widget/infoPessoa.dart';
+import '../widget/pessoaFoto.dart';
 
 class PessoaDetalhes extends StatelessWidget {
   final PessoasModel pessoaDetalhes;
@@ -62,14 +63,7 @@ class PessoaDetalhes extends StatelessWidget {
                 //Status Desaparecios ou Encontrado
                 child: Center(
                   // Garante que o texto fique centralizado dentro do Container
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(
-                      StringTxT.textoDesaparecido.toUpperCase(),
-                      //Style Personalizado
-                      style: AppStyles.textoDesaparecidoStyle,
-                    ),
-                  ),
+                  child: pessoaFoto,
                 ),
               ),
               // Adiciona um padding para distanciar o bloco de informações
@@ -126,14 +120,7 @@ class PessoaDetalhes extends StatelessWidget {
                     width: 240.0,
                     height: alturaContainer,
                     //Status Desaparecios ou Encontrado
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: Text(
-                        StringTxT.textoDesaparecido.toUpperCase(),
-                        //Style Personalizado
-                        style: AppStyles.textoDesaparecidoStyle,
-                      ),
-                    ),
+                    child: pessoaFoto,
                   ),
                   InfoPessoa(pessoa: pessoaDetalhes),
                 ],
