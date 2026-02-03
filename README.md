@@ -1,6 +1,6 @@
 # 📱 Projeto Desaparecidos - MT
 
-Este projeto foi desenvolvido em **Flutter** com o objetivo de demonstrar minhas habilidades como **Desenvolvedor Júnior**, alinhadas aos requisitos da vaga.  
+Este projeto foi desenvolvido em **Flutter** com o objetivo de demonstrar minhas habilidades como **Desenvolvedor full Stack**, alinhadas aos requisitos da vaga.  
 O foco é aplicar boas práticas de desenvolvimento, integração com APIs e  versionamento de código.
 
 ---
