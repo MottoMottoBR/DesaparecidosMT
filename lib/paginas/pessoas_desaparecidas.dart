@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:myapp/api_service/api_repository.dart';
 import 'package:myapp/paginas/pessoa_detalhes.dart';
 import '../models/pessoa_model.dart';
-import 'package:intl/intl.dart';
 
 class PessoasDesaparecidas extends StatefulWidget {
   const PessoasDesaparecidas({super.key});
@@ -38,19 +38,31 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
       future: futurePessoasModel,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          // Define uma altura fixa para o loading não colapsar a tela
+          return const SizedBox(
+            height: 400,
+            child: Center(child: CircularProgressIndicator()),
+          );
         } else if (snapshot.hasError) {
-          return Center(child: Text('Erro: ${snapshot.error}'));
+          return SizedBox(
+            height: 400,
+            child: Center(child: Text('Erro ao carregar dados: ${snapshot.error}')),
+          );
         } else if (snapshot.hasData) {
           final pessoas = snapshot.data!;
+
+          if (pessoas.isEmpty) {
+            return const SizedBox(
+              height: 400,
+              child: Center(child: Text('Nenhuma pessoa encontrada')),
+            );
+          }
+
+          // Lógica de Paginação
           final int startIndex = (_paginaAtual - 1) * _pessoasPorPagina;
           int endIndex = startIndex + _pessoasPorPagina;
           if (endIndex > pessoas.length) {
             endIndex = pessoas.length;
-          }
-
-          if (pessoas.isEmpty) {
-            return const Center(child: Text('Nenhuma pessoa encontrada'));
           }
 
           final List<PessoasModel> pessoasDaPagina = pessoas.sublist(
@@ -62,11 +74,11 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
 
           return Column(
             children: [
-              // A lista de itens deve ser o SingleChildScrollView para permitir a rolagem.
-              // Removemos o Expanded aqui.
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+              // CORREÇÃO: Removemos Expanded e SingleChildScrollView aqui.
+              // O widget agora apenas ocupa o espaço necessário.
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
                   child: Wrap(
                     spacing: 16.0,
                     runSpacing: 16.0,
@@ -75,82 +87,88 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                       final int index = entry.key;
                       final PessoasModel pessoa = entry.value;
 
-                      final dtDesaparecimento = DateTime.parse(
-                        pessoa.ultimaOcorrencia!.dtDesaparecimento!,
-                      );
-
-                      final dataFormatada = DateFormat(
-                        'dd/MM/yyyy',
-                      ).format(dtDesaparecimento);
+                      String dataFormatada = 'Data desconhecida';
+                      if (pessoa.ultimaOcorrencia?.dtDesaparecimento != null) {
+                        try {
+                          final dt = DateTime.parse(pessoa.ultimaOcorrencia!.dtDesaparecimento!);
+                          dataFormatada = DateFormat('dd/MM/yyyy').format(dt);
+                        } catch (e) {
+                          // Data inválida
+                        }
+                      }
 
                       return MouseRegion(
-                        onEnter: (event) {
-                          setState(() {
-                            _hoveredIndex = index;
-                          });
-                        },
-                        onExit: (event) {
-                          setState(() {
-                            _hoveredIndex = null;
-                          });
-                        },
+                        onEnter: (_) => setState(() => _hoveredIndex = index),
+                        onExit: (_) => setState(() => _hoveredIndex = null),
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    PessoaDetalhes(pessoaDetalhes: pessoa,),
+                                builder: (context) => PessoaDetalhes(pessoaDetalhes: pessoa),
                               ),
-
                             );
                           },
                           child: SizedBox(
                             width: 300.0,
                             height: 490.0,
                             child: Card(
-                              elevation: _hoveredIndex == index ? 50 : 1,
+                              elevation: _hoveredIndex == index ? 10 : 2,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  if (pessoa.urlFoto != null &&
-                                      pessoa.urlFoto!.isNotEmpty)
-                                    AspectRatio(
-                                      aspectRatio: 1 / 1,
-                                      child: ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(15),
-                                          topRight: Radius.circular(15),
-                                        ),
-                                        child: Image.network(
-                                          pessoa.urlFoto!,
-                                          fit: BoxFit.cover,
-                                          height: 250,
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                                return Image.asset(
-                                                  'lib/imagens/user.png',
-                                                  fit: BoxFit.cover,
-                                                  height: 250,
-                                                );
-                                              },
-                                        ),
+                                  AspectRatio(
+                                    aspectRatio: 1 / 1,
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(15),
+                                        topRight: Radius.circular(15),
+                                      ),
+                                      child: Image.network(
+                                        pessoa.urlFoto ?? '',
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        loadingBuilder: (context, child, loadingProgress) {
+                                          if (loadingProgress == null) return child;
+                                          return const Center(
+                                            child: CircularProgressIndicator(strokeWidth: 2),
+                                          );
+                                        },
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return Image.asset(
+                                            'lib/imagens/user.png',
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            errorBuilder: (context, error, stackTrace) {
+                                              return Container(
+                                                color: Colors.grey[200],
+                                                width: double.infinity,
+                                                child: const Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(Icons.person, size: 50, color: Colors.grey),
+                                                    Text("Sem foto", style: TextStyle(color: Colors.grey))
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
                                       ),
                                     ),
+                                  ),
+
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0,
-                                      vertical: 4.0,
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: SizedBox(
+                                      // Definimos uma altura fixa para o conteúdo de texto para evitar desalinhamento
+                                      height: 140,
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
                                         children: [
                                           Text(
                                             pessoa.nome ?? "Sem Nome",
@@ -158,52 +176,46 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
+                                              fontSize: 16,
                                             ),
                                           ),
+                                          const SizedBox(height: 4),
                                           Text(
-                                            '${pessoa.idade} Anos, ${pessoa.sexo} ',
-                                            maxLines: 2,
+                                            '${pessoa.idade ?? "?"} Anos, ${pessoa.sexo ?? "Não informado"}',
+                                            maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w100,
+                                            style: TextStyle(
+                                              color: Colors.grey[700],
                                               fontSize: 13,
                                             ),
                                           ),
-                                          const SizedBox(height: 15),
+                                          const Spacer(),
+                                          const Divider(),
                                           RichText(
                                             text: TextSpan(
+                                              style: const TextStyle(color: Colors.black87, fontSize: 13),
                                               children: [
                                                 const TextSpan(
-                                                  text: 'Data: ',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                                  text: 'Desapareceu em: ',
+                                                  style: TextStyle(fontWeight: FontWeight.bold),
                                                 ),
-                                                TextSpan(
-                                                  text: dataFormatada,
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w100,
-                                                  ),
-                                                ),
+                                                TextSpan(text: dataFormatada),
                                               ],
                                             ),
                                           ),
+                                          const SizedBox(height: 4),
                                           RichText(
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
                                             text: TextSpan(
+                                              style: const TextStyle(color: Colors.black87, fontSize: 13),
                                               children: [
                                                 const TextSpan(
                                                   text: 'Local: ',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                                  style: TextStyle(fontWeight: FontWeight.bold),
                                                 ),
                                                 TextSpan(
-                                                  text: pessoa
-                                                      .ultimaOcorrencia!
-                                                      .localDesaparecimentoConcat,
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.w100,
-                                                  ),
+                                                  text: pessoa.ultimaOcorrencia?.localDesaparecimentoConcat ?? "Não informado",
                                                 ),
                                               ],
                                             ),
@@ -222,29 +234,35 @@ class _PessoasDesaparecidasState extends State<PessoasDesaparecidas> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-              // A barra de paginação deve ficar fora do SingleChildScrollView para permanecer fixa.
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: _paginaAtual > 1
-                        ? () => _mudarPagina(_paginaAtual - 1)
-                        : null,
-                    child: const Text('Anterior'),
-                  ),
-                  const SizedBox(width: 20),
-                  Text('Página $_paginaAtual de $totalPaginas'),
-                  const SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: _paginaAtual < totalPaginas
-                        ? () => _mudarPagina(_paginaAtual + 1)
-                        : null,
-                    child: const Text('Próximo'),
-                  ),
-                ],
+
+              // Barra de Paginação
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                color: Colors.grey[50],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _paginaAtual > 1
+                          ? () => _mudarPagina(_paginaAtual - 1)
+                          : null,
+                      child: const Text('Anterior'),
+                    ),
+                    const SizedBox(width: 20),
+                    Text(
+                      'Página $_paginaAtual de $totalPaginas',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 20),
+                    ElevatedButton(
+                      onPressed: _paginaAtual < totalPaginas
+                          ? () => _mudarPagina(_paginaAtual + 1)
+                          : null,
+                      child: const Text('Próximo'),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 20),
             ],
           );
         }
