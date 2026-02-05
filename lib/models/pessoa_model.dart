@@ -83,21 +83,22 @@ class PessoasModel {
 
 class UltimaOcorrencia {
   String? _dtDesaparecimento;
-  Null? _dataLocalizacao;
+  String? _dataLocalizacao; // MUDOU DE Null? PARA String?
   bool? _encontradoVivo;
   String? _localDesaparecimentoConcat;
   OcorrenciaEntrevDesapDTO? _ocorrenciaEntrevDesapDTO;
-  Null? _listaCartaz;
+  dynamic _listaCartaz; // MUDOU DE Null? PARA dynamic (pois pode ser uma lista ou string)
   int? _ocoId;
 
-  UltimaOcorrencia(
-      {String? dtDesaparecimento,
-        Null? dataLocalizacao,
-        bool? encontradoVivo,
-        String? localDesaparecimentoConcat,
-        OcorrenciaEntrevDesapDTO? ocorrenciaEntrevDesapDTO,
-        Null? listaCartaz,
-        int? ocoId}) {
+  UltimaOcorrencia({
+    String? dtDesaparecimento,
+    String? dataLocalizacao, // Atualizar no construtor também
+    bool? encontradoVivo,
+    String? localDesaparecimentoConcat,
+    OcorrenciaEntrevDesapDTO? ocorrenciaEntrevDesapDTO,
+    dynamic listaCartaz, // Atualizar no construtor
+    int? ocoId
+  }) {
     if (dtDesaparecimento != null) {
       this._dtDesaparecimento = dtDesaparecimento;
     }
@@ -121,35 +122,37 @@ class UltimaOcorrencia {
     }
   }
 
+  // Corrigir os Getters e Setters
   String? get dtDesaparecimento => _dtDesaparecimento;
-  set dtDesaparecimento(String? dtDesaparecimento) =>
-      _dtDesaparecimento = dtDesaparecimento;
-  Null? get dataLocalizacao => _dataLocalizacao;
-  set dataLocalizacao(Null? dataLocalizacao) =>
-      _dataLocalizacao = dataLocalizacao;
+  set dtDesaparecimento(String? dtDesaparecimento) => _dtDesaparecimento = dtDesaparecimento;
+
+  String? get dataLocalizacao => _dataLocalizacao; // MUDOU O TIPO AQUI
+  set dataLocalizacao(String? dataLocalizacao) => _dataLocalizacao = dataLocalizacao;
+
   bool? get encontradoVivo => _encontradoVivo;
   set encontradoVivo(bool? encontradoVivo) => _encontradoVivo = encontradoVivo;
+
   String? get localDesaparecimentoConcat => _localDesaparecimentoConcat;
   set localDesaparecimentoConcat(String? localDesaparecimentoConcat) =>
       _localDesaparecimentoConcat = localDesaparecimentoConcat;
-  OcorrenciaEntrevDesapDTO? get ocorrenciaEntrevDesapDTO =>
-      _ocorrenciaEntrevDesapDTO;
-  set ocorrenciaEntrevDesapDTO(
-      OcorrenciaEntrevDesapDTO? ocorrenciaEntrevDesapDTO) =>
+
+  OcorrenciaEntrevDesapDTO? get ocorrenciaEntrevDesapDTO => _ocorrenciaEntrevDesapDTO;
+  set ocorrenciaEntrevDesapDTO(OcorrenciaEntrevDesapDTO? ocorrenciaEntrevDesapDTO) =>
       _ocorrenciaEntrevDesapDTO = ocorrenciaEntrevDesapDTO;
-  Null? get listaCartaz => _listaCartaz;
-  set listaCartaz(Null? listaCartaz) => _listaCartaz = listaCartaz;
+
+  dynamic get listaCartaz => _listaCartaz; // MUDOU O TIPO AQUI
+  set listaCartaz(dynamic listaCartaz) => _listaCartaz = listaCartaz;
+
   int? get ocoId => _ocoId;
   set ocoId(int? ocoId) => _ocoId = ocoId;
 
   UltimaOcorrencia.fromJson(Map<String, dynamic> json) {
     _dtDesaparecimento = json['dtDesaparecimento'];
-    _dataLocalizacao = json['dataLocalizacao'];
+    _dataLocalizacao = json['dataLocalizacao']; // Agora aceita String sem quebrar
     _encontradoVivo = json['encontradoVivo'];
     _localDesaparecimentoConcat = json['localDesaparecimentoConcat'];
     _ocorrenciaEntrevDesapDTO = json['ocorrenciaEntrevDesapDTO'] != null
-        ? new OcorrenciaEntrevDesapDTO.fromJson(
-        json['ocorrenciaEntrevDesapDTO'])
+        ? new OcorrenciaEntrevDesapDTO.fromJson(json['ocorrenciaEntrevDesapDTO'])
         : null;
     _listaCartaz = json['listaCartaz'];
     _ocoId = json['ocoId'];
@@ -162,8 +165,7 @@ class UltimaOcorrencia {
     data['encontradoVivo'] = this._encontradoVivo;
     data['localDesaparecimentoConcat'] = this._localDesaparecimentoConcat;
     if (this._ocorrenciaEntrevDesapDTO != null) {
-      data['ocorrenciaEntrevDesapDTO'] =
-          this._ocorrenciaEntrevDesapDTO!.toJson();
+      data['ocorrenciaEntrevDesapDTO'] = this._ocorrenciaEntrevDesapDTO!.toJson();
     }
     data['listaCartaz'] = this._listaCartaz;
     data['ocoId'] = this._ocoId;
